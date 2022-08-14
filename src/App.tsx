@@ -1,11 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Palette from "./components/pallete";
+import "./App.css";
+import { seedColors } from "./assets/seedColors";
 
 function App() {
   return (
     <div className="App">
-   <h1>Hello world</h1>
+      <Palette colors={seedColors} />
     </div>
   );
 }
