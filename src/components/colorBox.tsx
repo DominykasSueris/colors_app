@@ -1,7 +1,15 @@
-const ColorBox = () => {
+import { SeedColors } from "../models/SeedColor";
+
+interface ColorProps {
+  color: SeedColors;
+}
+
+const ColorBox = ({ color }: ColorProps) => {
   return (
     <div className="ColorBox">
-      <span>More</span>
+      {color.colors.map(color => (
+        <span style={{ background: color.color }}>{color.name}</span>
+      ))}
     </div>
   );
 };
