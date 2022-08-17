@@ -12,7 +12,7 @@ const Palette = ({ seedColor }: PaletteProps) => {
       {seedColor.colors.map(color => (
         <ColorBox color={color} />
       ))}
-      <div className="Palette-colors"></div>
+      <div className="palette-colors"></div>
     </div>
   );
 };

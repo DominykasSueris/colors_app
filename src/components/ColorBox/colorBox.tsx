@@ -7,9 +7,13 @@ interface ColorProps {
 
 const ColorBox = ({ color }: ColorProps) => {
   return (
-    <div className="ColorBox">
-      <div className="ColorBox-div" style={{ background: color.color }}>
-        {color.name}
+    <div className="ColorBox" style={{ background: color.color }}>
+      <div className="copy-container">
+        <div className="box-content">
+          <span className="color-name">{color.name}</span>
+        </div>
+        <button className="copy-button">Copy</button>
+        <span className="see-more">More</span>
       </div>
     </div>
   );
