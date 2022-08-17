@@ -1,4 +1,4 @@
-export interface SeedColors {
+export interface SeedColor {
   paletteName: string;
   id: string;
   emoji: string;

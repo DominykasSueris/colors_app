@@ -1,6 +1,6 @@
-import { SeedColors } from "../models/SeedColor";
+import { SeedColor } from "../models/SeedColor";
 
-export const seedColors: SeedColors[] = [
+export const seedColors: SeedColor[] = [
   {
     paletteName: "Material UI Colors",
     id: "material-ui-colors",

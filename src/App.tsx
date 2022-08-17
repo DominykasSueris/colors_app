@@ -1,11 +1,11 @@
-import Palette from "./components/pallete";
+import Palette from "./components/Pallete/pallete";
 import "./App.css";
 import { seedColors } from "./assets/seedColors";
 
 function App() {
   return (
     <div className="App">
-      <Palette colors={seedColors} />
+      <Palette seedColor={seedColors[1]} />
     </div>
   );
 }
