@@ -4,7 +4,6 @@
   width: 20%;
   height: 25%;
   margin: 0 auto;
-  cursor: pointer;
   margin-bottom: -3.5px;
 
   .copy-container {
@@ -40,6 +39,7 @@
       text-transform: uppercase;
       border: none;
       opacity: 0;
+      cursor: pointer;
     }
 
     .see-more {

@@ -1,4 +1,5 @@
 import { Color } from "../../models/SeedColor";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./colorBox.scss";
 
 interface ColorProps {
@@ -12,11 +13,12 @@ const ColorBox = ({ color }: ColorProps) => {
         <div className="box-content">
           <span className="color-name">{color.name}</span>
         </div>
-        <button className="copy-button">Copy</button>
+        <CopyToClipboard text={color.color}>
+          <button className="copy-button">Copy</button>
+        </CopyToClipboard>
         <span className="see-more">More</span>
       </div>
     </div>
   );
 };
-
 export default ColorBox;
