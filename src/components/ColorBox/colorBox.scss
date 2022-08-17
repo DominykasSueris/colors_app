@@ -30,3 +30,8 @@
     }
   }
 }
+
+.ColorBox:hover .copy-button {
+  opacity: 1;
+  transition: 0.5s;
+}
