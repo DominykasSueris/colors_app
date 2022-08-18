@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Color } from "../../models/SeedColor";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./colorBox.scss";
@@ -21,9 +21,13 @@ const ColorBox = ({ color }: ColorProps) => {
   return (
     <div className="ColorBox" style={{ background: color.color }}>
       <div
-        className={`${copied ? "show" : "copy-overlay"}`}
+        className={`${copied ? "show-overlay" : "copy-overlay"}`}
         style={{ background: color.color }}
       ></div>
+      <div className={`${copied ? "show-message" : "copy-message"}`}>
+        <h1>copied!</h1>
+        <p>{color.color}</p>
+      </div>
       <div className="copy-container">
         <div className="box-content">
           <span className="color-name">{color.name}</span>
