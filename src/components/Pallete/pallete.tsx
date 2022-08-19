@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { SeedColor } from "../../models/SeedColor";
 import ColorBox from "../ColorBox/colorBox";
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
+import Navbar from "../Navbar/navbar";
 import "./pallete.scss";
 
 interface PaletteProps {
@@ -16,20 +15,9 @@ const Palette = ({ seedColor }: PaletteProps) => {
     console.log(sliderLevel);
     setSliderLevel(sliderLevel);
   };
-
   return (
     <div className="Palette">
-      <div className="slider">
-        <Slider
-          range
-          defaultValue={sliderLevel}
-          min={0}
-          max={900}
-          step={100}
-          onChange={changeLevel}
-        />
-      </div>
-
+      <Navbar sliderLevel={sliderLevel} changeLevel={changeLevel} />
       {seedColor.colors.map(color => (
         <ColorBox color={color} />
       ))}
