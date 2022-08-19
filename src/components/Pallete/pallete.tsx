@@ -19,17 +19,21 @@ const Palette = ({ seedColor }: PaletteProps) => {
 
   return (
     <div className="Palette">
-      <Slider
-        range
-        defaultValue={sliderLevel}
-        min={0}
-        max={900}
-        step={100}
-        onChange={changeLevel}
-      />
+      <div className="slider">
+        <Slider
+          range
+          defaultValue={sliderLevel}
+          min={0}
+          max={900}
+          step={100}
+          onChange={changeLevel}
+        />
+      </div>
+
       {seedColor.colors.map(color => (
         <ColorBox color={color} />
       ))}
+
       <div className="palette-colors"></div>
     </div>
   );
