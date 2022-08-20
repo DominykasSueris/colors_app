@@ -4,6 +4,7 @@ import { SeedColor } from "../../models/SeedColor";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
 import "./pallete.scss";
+import { colors } from "@mui/material";
 
 interface PaletteProps {
   seedColor: SeedColor;
@@ -31,11 +32,15 @@ const Palette = ({ seedColor }: PaletteProps) => {
         format={format}
         setFormat={setFormat}
       />
-      {seedColor.colors.map(color => (
-        <ColorBox color={color} format={format} />
-      ))}
-
-      <div className="palette-colors"></div>
+      <div className="Palette-colors">
+        {seedColor.colors.map(color => (
+          <ColorBox color={color} format={format} key={color.name} />
+        ))}
+      </div>
+      <footer className="Palette-footer">
+        {seedColor.paletteName}
+        <span className="emoji">{seedColor.emoji}</span>
+      </footer>
     </div>
   );
 };
