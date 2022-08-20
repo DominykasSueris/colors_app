@@ -5,9 +5,10 @@ import "./colorBox.scss";
 
 interface ColorProps {
   color: Color;
+  format: string;
 }
 
-const ColorBox = ({ color }: ColorProps) => {
+const ColorBox = ({ color, format }: ColorProps) => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopyState = () => {

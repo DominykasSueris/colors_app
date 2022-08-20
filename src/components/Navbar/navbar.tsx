@@ -1,13 +1,23 @@
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./navbar.scss";
 
 interface SliderProps {
   sliderLevel: number | number[];
+  format: string;
+  setFormat: (format: string) => void;
   changeLevel: (sliderLevel: number | number[]) => void;
+  changeFormat: (event: SelectChangeEvent) => void;
 }
 
-const Navbar = ({ sliderLevel, changeLevel }: SliderProps) => {
+const Navbar = ({ sliderLevel, changeLevel, format, changeFormat, setFormat }: SliderProps) => {
+  const handleChange = (event: SelectChangeEvent) => {
+    setFormat(event.target.value);
+    changeFormat(event);
+  };
+
   return (
     <header className="Navbar">
       <div className="logo">
@@ -25,6 +35,13 @@ const Navbar = ({ sliderLevel, changeLevel }: SliderProps) => {
             onChange={changeLevel}
           />
         </div>
+      </div>
+      <div className="select-container">
+        <Select value={format} onChange={handleChange}>
+          <MenuItem value="hex">HEX - #ffffff</MenuItem>
+          <MenuItem value="rgb">RGB - rgb 255, 255, 255</MenuItem>
+          <MenuItem value="rgba">RGBA- rgb 255, 255, 255, 1.0</MenuItem>
+        </Select>
       </div>
     </header>
   );
