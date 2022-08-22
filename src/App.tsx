@@ -1,13 +1,18 @@
 import Palette from "./components/Pallete/pallete";
-import "./App.css";
+import { Route, Routes, Router } from "react-router-dom";
 import { seedColors } from "./assets/seedColors";
 import { generatePalette } from "./colorHelpers";
+import { SeedColor } from "./models/SeedColor";
+import "./App.css";
 
 function App() {
-  console.log(generatePalette(seedColors[2]));
   return (
     <div className="App">
-      <Palette seedColor={seedColors[1]} />
+      {/* <Palette seedColor={seedColors[1]} /> */}
+      <Routes>
+        <Route path="/"></Route>
+        <Route path="/palette/:id" element={<Palette />}></Route>
+      </Routes>
     </div>
   );
 }

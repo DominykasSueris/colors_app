@@ -1,16 +1,12 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { SeedColor } from "../../models/SeedColor";
+import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
 import "./pallete.scss";
-import { colors } from "@mui/material";
 
-interface PaletteProps {
-  seedColor: SeedColor;
-}
-
-const Palette = ({ seedColor }: PaletteProps) => {
+const Palette = () => {
   const [format, setFormat] = useState<string>("hex");
   const [sliderLevel, setSliderLevel] = useState<number | number[]>(100);
 
@@ -23,26 +19,32 @@ const Palette = ({ seedColor }: PaletteProps) => {
     setFormat(event.target.value);
   };
 
-  return (
-    <div className="Palette">
-      <Navbar
-        sliderLevel={sliderLevel}
-        changeLevel={changeLevel}
-        changeFormat={changeFormat}
-        format={format}
-        setFormat={setFormat}
-      />
-      <div className="Palette-colors">
-        {seedColor.colors.map(color => (
-          <ColorBox color={color} format={format} key={color.name} />
-        ))}
+  const { id } = useParams();
+  const seedColor = findPalleteById(id);
+  if (seedColor) {
+    return (
+      <div className="Palette">
+        <Navbar
+          sliderLevel={sliderLevel}
+          changeLevel={changeLevel}
+          changeFormat={changeFormat}
+          format={format}
+          setFormat={setFormat}
+        />
+        <div className="Palette-colors">
+          {seedColor.colors.map(color => (
+            <ColorBox color={color} format={format} key={color.name} />
+          ))}
+        </div>
+        <footer className="Palette-footer">
+          {seedColor.paletteName}
+          <span className="emoji">{seedColor.emoji}</span>
+        </footer>
       </div>
-      <footer className="Palette-footer">
-        {seedColor.paletteName}
-        <span className="emoji">{seedColor.emoji}</span>
-      </footer>
-    </div>
-  );
+    );
+  } else {
+    return <div>Seed Color not found</div>;
+  }
 };
 
 export default Palette;
