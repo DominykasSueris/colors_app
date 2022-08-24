@@ -4,7 +4,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
-import "./pallete.scss";
+import "./palette.scss";
 
 const Palette = () => {
   const [format, setFormat] = useState<string>("hex");
