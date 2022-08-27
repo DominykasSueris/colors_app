@@ -8,20 +8,29 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { Link } from "react-router-dom";
 import "./navbar.scss";
+import { ColorFormatType } from "../../models/SeedColor";
 
 interface SliderProps {
-  sliderLevel: number | number[];
-  format: string;
-  setFormat: (format: string) => void;
-  changeLevel: (sliderLevel: number | number[]) => void;
+  colorLevel: number;
+  sliderValue: number;
+  format: ColorFormatType;
+  setFormat: (format: ColorFormatType) => void;
+  changeLevel: (sliderValue: number | number[]) => void;
   changeFormat: (event: SelectChangeEvent) => void;
 }
 
-const Navbar = ({ sliderLevel, changeLevel, format, changeFormat, setFormat }: SliderProps) => {
+const Navbar = ({
+  colorLevel,
+  sliderValue,
+  changeLevel,
+  format,
+  changeFormat,
+  setFormat
+}: SliderProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setFormat(event.target.value);
+    setFormat(event.target.value as ColorFormatType);
     setOpen(true);
     changeFormat(event);
   };
@@ -36,14 +45,14 @@ const Navbar = ({ sliderLevel, changeLevel, format, changeFormat, setFormat }: S
         <Link to="/">reactcolorpicker</Link>
       </div>
       <div className="slider-container">
-        <span>Level:{sliderLevel}</span>
+        <span>Level:{colorLevel}</span>
         <div className="slider">
           <Slider
             range
-            defaultValue={sliderLevel}
+            defaultValue={sliderValue}
             min={0}
-            max={900}
-            step={100}
+            max={9}
+            step={1}
             onChange={changeLevel}
           />
         </div>

@@ -5,46 +5,65 @@ import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
 import "./palette.scss";
+import { generatePalette } from "../../colorHelpersTs";
+import { ColorFormatType } from "../../models/SeedColor";
 
 const Palette = () => {
-  const [format, setFormat] = useState<string>("hex");
-  const [sliderLevel, setSliderLevel] = useState<number | number[]>(100);
+  const colorLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-  const changeLevel = (sliderLevel: number | number[]) => {
-    setSliderLevel(sliderLevel);
+  const [format, setFormat] = useState<ColorFormatType>("hex");
+  const [sliderValue, setSliderValue] = useState<number>(4);
+  const [colorLevel, setColorLevel] = useState<number>(colorLevels[sliderValue]);
+
+  const { id } = useParams();
+
+  const changeLevel = (sliderValue: number | number[]) => {
+    if (Array.isArray(sliderValue)) {
+      sliderValue = sliderValue[0];
+    }
+    setSliderValue(sliderValue);
+    setColorLevel(colorLevels[sliderValue]);
   };
 
   const changeFormat = (event: SelectChangeEvent) => {
-    alert(format);
-    setFormat(event.target.value);
+    setFormat(event.target.value as ColorFormatType);
   };
 
-  const { id } = useParams();
-  const seedColor = findPalleteById(id);
-  if (seedColor) {
+  const palette = () => {
+    const seedColor = findPalleteById(id);
+    if (!seedColor) {
+      throw new Error("Error");
+    }
+    const generatedPalette = generatePalette(seedColor);
+
     return (
-      <div className="Palette">
-        <Navbar
-          sliderLevel={sliderLevel}
-          changeLevel={changeLevel}
-          changeFormat={changeFormat}
-          format={format}
-          setFormat={setFormat}
-        />
+      <>
         <div className="Palette-colors">
-          {seedColor.colors.map(color => (
+          {generatedPalette.colors.get(colorLevel)!.map(color => (
             <ColorBox color={color} format={format} key={color.name} />
           ))}
         </div>
         <footer className="Palette-footer">
-          {seedColor.paletteName}
-          <span className="emoji">{seedColor.emoji}</span>
+          {generatedPalette.paletteName}
+          <span className="emoji">{generatedPalette.emoji}</span>
         </footer>
-      </div>
+      </>
     );
-  } else {
-    return <div>Seed Color not found</div>;
-  }
+  };
+
+  return (
+    <div className="Palette">
+      <Navbar
+        sliderValue={sliderValue}
+        colorLevel={colorLevel}
+        changeLevel={changeLevel}
+        changeFormat={changeFormat}
+        format={format}
+        setFormat={setFormat}
+      />
+      {palette()}
+    </div>
+  );
 };
 
 export default Palette;
