@@ -5,7 +5,7 @@ import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
 import "./palette.scss";
-import { generatePalette } from "../../colorHelpersTs";
+import { generatePalette } from "../../assets/colorHelpersTs";
 import { ColorFormatType } from "../../models/SeedColor";
 
 const Palette = () => {

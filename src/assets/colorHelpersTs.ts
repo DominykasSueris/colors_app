@@ -1,5 +1,5 @@
 import { color as chromaColor, scale as chromaScale } from "chroma.ts";
-import { GeneratedColor, GeneratedPalette, SeedColor } from "./models/SeedColor";
+import { GeneratedColor, GeneratedPalette, SeedColor } from "../models/SeedColor";
 const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 function generatePalette(starterPalette: SeedColor): GeneratedPalette {
