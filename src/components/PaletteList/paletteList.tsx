@@ -1,5 +1,5 @@
 import { SeedColor } from "../../models/SeedColor";
-import { Link } from "react-router-dom";
+import MiniPalette from "../MiniPalette/miniPalette";
 
 interface SeedColorProps {
   palettes: SeedColor[];
@@ -9,9 +9,7 @@ const PaletteList = ({ palettes }: SeedColorProps) => {
   return (
     <div>
       {palettes.map(palette => (
-        <p>
-          <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>
-        </p>
+        <MiniPalette {...palette} />
       ))}
     </div>
   );
