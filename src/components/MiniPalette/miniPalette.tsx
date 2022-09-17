@@ -1,3 +1,4 @@
+import { Color } from "../../models/SeedColor";
 import MiniColorBoxes from "./miniColorBoxes";
 import "./miniPalette.scss";
 

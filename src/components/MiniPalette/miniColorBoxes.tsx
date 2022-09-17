@@ -1,17 +1,17 @@
-import { SeedColor } from "../../models/SeedColor";
+import { Color } from "../../models/SeedColor";
 import "./miniColorBoxes.scss";
 
 interface MiniColorBoxesProps {
-  colors: SeedColor[];
+  colors: Color[];
 }
 
 const MinColorBoxes = ({ colors }: MiniColorBoxesProps) => {
   return (
-    <div>
+    <>
       {colors.map(color => (
-        <div className="mini-color" key={color.id}></div>
+        <div className="mini-color" style={{ background: color.color }} key={color.name}></div>
       ))}
-    </div>
+    </>
   );
 };
 
