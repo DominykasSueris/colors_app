@@ -1,5 +1,4 @@
 import { Color } from "../../models/SeedColor";
-import MiniColorBoxes from "./miniColorBoxes";
 import "./miniPalette.scss";
 
 interface MiniPaletteProps {
@@ -13,7 +12,9 @@ const MiniPalette = ({ paletteName, id, emoji, colors }: MiniPaletteProps) => {
   return (
     <div className="main">
       <div className="colors">
-        <MiniColorBoxes colors={colors} />
+        {colors.map(color => (
+          <div className="mini-color" style={{ background: color.color }} key={color.name}></div>
+        ))}
       </div>
       <h5 className="title">
         {paletteName}

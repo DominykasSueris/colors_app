@@ -33,4 +33,15 @@
     margin-left: 0.5rem;
     font-size: 1.5rem;
   }
+
+  .colors {
+    .mini-color {
+      height: 25%;
+      width: 20%;
+      display: inline-block;
+      margin: 0 auto;
+      position: relative;
+      margin-bottom: -3.5px;
+    }
+  }
 }
