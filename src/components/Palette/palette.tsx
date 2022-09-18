@@ -40,7 +40,13 @@ const Palette = () => {
       <>
         <div className="Palette-colors">
           {generatedPalette.colors.get(colorLevel)!.map(color => (
-            <ColorBox color={color} format={format} key={color.name} />
+            <ColorBox
+              color={color}
+              format={format}
+              key={color.name}
+              id={color.id}
+              paletteId={generatedPalette.paletteName}
+            />
           ))}
         </div>
         <footer className="Palette-footer">

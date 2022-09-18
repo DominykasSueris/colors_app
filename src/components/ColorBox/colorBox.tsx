@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ColorFormatType, GeneratedColor } from "../../models/SeedColor";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./colorBox.scss";
@@ -6,9 +7,11 @@ import "./colorBox.scss";
 interface ColorProps {
   color: GeneratedColor;
   format: ColorFormatType;
+  id: string;
+  paletteId: string;
 }
 
-const ColorBox = ({ color, format }: ColorProps) => {
+const ColorBox = ({ color, format, id, paletteId }: ColorProps) => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopyState = () => {
@@ -35,7 +38,9 @@ const ColorBox = ({ color, format }: ColorProps) => {
         <CopyToClipboard text={color[format]} onCopy={handleCopyState}>
           <button className="copy-button">Copy</button>
         </CopyToClipboard>
-        <span className="see-more">More</span>
+        <Link to={`/palette/${paletteId}/${id}`}>
+          <span className="see-more">More</span>
+        </Link>
       </div>
     </div>
   );
