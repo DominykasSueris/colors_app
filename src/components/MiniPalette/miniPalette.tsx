@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { Color } from "../../models/SeedColor";
 import "./miniPalette.scss";
 
@@ -6,11 +7,12 @@ interface MiniPaletteProps {
   id: string;
   emoji: string;
   colors: Color[];
+  handleClick: MouseEventHandler<HTMLDivElement>;
 }
 
-const MiniPalette = ({ paletteName, id, emoji, colors }: MiniPaletteProps) => {
+const MiniPalette = ({ paletteName, id, emoji, colors, handleClick }: MiniPaletteProps) => {
   return (
-    <div className="main">
+    <div className="main" onClick={handleClick}>
       <div className="colors">
         {colors.map(color => (
           <div className="mini-color" style={{ background: color.color }} key={color.name}></div>

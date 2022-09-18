@@ -1,5 +1,5 @@
 import { SeedColor } from "../../models/SeedColor";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MiniPalette from "../MiniPalette/miniPalette";
 import "./paletteList.scss";
 
@@ -8,6 +8,12 @@ interface SeedColorProps {
 }
 
 const PaletteList = ({ palettes }: SeedColorProps) => {
+  const navigate = useNavigate();
+
+  const goToPalette = (id: string) => {
+    navigate(`/palette/${id}`);
+  };
+
   return (
     <div className="palettelist">
       <div className="container">
@@ -16,9 +22,7 @@ const PaletteList = ({ palettes }: SeedColorProps) => {
         </nav>
         <div className="palettes">
           {palettes.map(palette => (
-            <Link to={`/palette/${palette.id}`}>
-              <MiniPalette {...palette} />
-            </Link>
+            <MiniPalette {...palette} handleClick={() => goToPalette(palette.id)} />
           ))}
         </div>
       </div>
