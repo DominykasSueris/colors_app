@@ -45,7 +45,7 @@ const Palette = () => {
               format={format}
               key={color.name}
               id={color.id}
-              paletteId={generatedPalette.paletteName}
+              paletteId={generatedPalette.id}
             />
           ))}
         </div>

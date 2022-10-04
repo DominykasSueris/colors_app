@@ -41,4 +41,4 @@ function getScale(hexColor: string, numberOfColors: number) {
   return chromaScale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
 
-export { generatePalette };
+export { generatePalette, getScale };

@@ -38,7 +38,7 @@ const ColorBox = ({ color, format, id, paletteId }: ColorProps) => {
         <CopyToClipboard text={color[format]} onCopy={handleCopyState}>
           <button className="copy-button">Copy</button>
         </CopyToClipboard>
-        <Link to={`/palette/${paletteId}/${id}`}>
+        <Link to={`/palette/${paletteId}/color/${id}`}>
           <span className="see-more">More</span>
         </Link>
       </div>
