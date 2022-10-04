@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import { getScale } from "../../assets/colorHelpersTs";
 import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
+import { ColorFormatType } from "../../models/SeedColor";
 import "../Palette/palette.scss";
 
 const SingleColorPalette = () => {
+  const [format, setFormat] = useState<ColorFormatType>("hex");
   const { paletteId, colorName } = useParams();
 
   const smallColor = () => {
@@ -18,7 +21,7 @@ const SingleColorPalette = () => {
     return (
       <p>
         {getScale(color!.color, 10).map(color => (
-          <ColorBox />
+          <ColorBox color={color} format={format} key={color.name} id={color.id} />
         ))}
       </p>
     );
