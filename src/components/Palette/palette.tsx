@@ -13,7 +13,9 @@ const Palette = () => {
 
   const [format, setFormat] = useState<ColorFormatType>("hex");
   const [sliderValue, setSliderValue] = useState<number>(4);
-  const [colorLevel, setColorLevel] = useState<number>(colorLevels[sliderValue]);
+  const [colorLevel, setColorLevel] = useState<number>(
+    colorLevels[sliderValue]
+  );
 
   const { id } = useParams();
 
@@ -39,12 +41,11 @@ const Palette = () => {
     return (
       <>
         <div className="Palette-colors">
-          {generatedPalette.colors.get(colorLevel)!.map(color => (
+          {generatedPalette.colors.get(colorLevel)!.map((color) => (
             <ColorBox
               color={color}
               format={format}
               key={color.name}
-              id={color.id}
               paletteId={generatedPalette.id}
             />
           ))}

@@ -7,11 +7,10 @@ import "./colorBox.scss";
 interface ColorProps {
   color: GeneratedColor;
   format: ColorFormatType;
-  id: string;
-  paletteId: string;
+  paletteId?: string;
 }
 
-const ColorBox = ({ color, format, id, paletteId }: ColorProps) => {
+const ColorBox = ({ color, format, paletteId }: ColorProps) => {
   const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopyState = () => {
@@ -20,6 +19,8 @@ const ColorBox = ({ color, format, id, paletteId }: ColorProps) => {
       setCopied(false);
     }, 1500);
   };
+
+  console.log(color[format]);
 
   return (
     <div className="ColorBox" style={{ background: color[format] }}>
@@ -38,9 +39,11 @@ const ColorBox = ({ color, format, id, paletteId }: ColorProps) => {
         <CopyToClipboard text={color[format]} onCopy={handleCopyState}>
           <button className="copy-button">Copy</button>
         </CopyToClipboard>
-        <Link to={`/palette/${paletteId}/color/${id}`}>
-          <span className="see-more">More</span>
-        </Link>
+        {paletteId ? (
+          <Link to={`/palette/${paletteId}/color/${color.name.split(" ")[0]}`}>
+            <span className="see-more">More</span>
+          </Link>
+        ) : null}
       </div>
     </div>
   );
