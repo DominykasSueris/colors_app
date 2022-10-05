@@ -32,6 +32,23 @@ function generatePalette(starterPalette: SeedColor): GeneratedPalette {
   return newPalette;
 }
 
+function generateColorScale(startingColor: Color): GeneratedColor[] {
+  let generatedColors = [];
+  let scale = getScale(startingColor.color, 10).reverse();
+  for (let i in scale) {
+    generatedColors.push({
+        name: `${color.name} ${levels[i]}`,
+        id: color.name.toLowerCase().replace(/ /g, "-"),
+        hex: scale[i],
+        rgb: chromaColor(scale[i]).css(),
+        rgba: chromaColor(scale[i]).css().replace("rgb", "rgba").replace(")", ",1.0)")
+      });
+    }
+    
+  }
+  return generatedColors;
+}
+
 function getRange(hexColor: string) {
   const end = "#fff";
   return [chromaColor(hexColor).darker(1.4).hex(), hexColor, end];
@@ -41,4 +58,4 @@ function getScale(hexColor: string, numberOfColors: number) {
   return chromaScale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
 
-export { generatePalette, getScale };
+export { generatePalette, generateColorScale };
