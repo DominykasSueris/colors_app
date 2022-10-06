@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
-import { getScale } from "../../assets/colorHelpersTs";
+import { generateColorScale } from "../../assets/colorHelpersTs";
 import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import { ColorFormatType } from "../../models/SeedColor";
@@ -13,17 +13,20 @@ const SingleColorPalette = () => {
   const smallColor = () => {
     const seedColor = findPalleteById(paletteId);
     if (!seedColor) {
-      throw new Error("Error");
+      throw new Error("Seed Color not Found");
     }
-    const color = seedColor.colors.find(color => colorName === color.name);
-    console.log(color);
+    const color = seedColor.colors.find((color) => colorName === color.name);
+    if (!color) {
+      throw new Error("Color not Found");
+    }
 
     return (
-      <p>
-        {getScale(color!.color, 10).map(color => (
-          <ColorBox color={color} format={format} key={color.name} id={color.id} />
-        ))}
-      </p>
+      <>
+        {generateColorScale(color).map((color) => {
+          console.log(color);
+          return <ColorBox color={color} format={format} key={color.name} />;
+        })}
+      </>
     );
   };
 

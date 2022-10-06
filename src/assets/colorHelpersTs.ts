@@ -1,5 +1,5 @@
 import { color as chromaColor, scale as chromaScale } from "chroma.ts";
-import { GeneratedColor, GeneratedPalette, SeedColor } from "../models/SeedColor";
+import { Color, GeneratedColor, GeneratedPalette, SeedColor } from "../models/SeedColor";
 const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 function generatePalette(starterPalette: SeedColor): GeneratedPalette {
@@ -32,6 +32,21 @@ function generatePalette(starterPalette: SeedColor): GeneratedPalette {
   return newPalette;
 }
 
+function generateColorScale(startingColor: Color): GeneratedColor[] {
+  let generatedColors: GeneratedColor[] = [];
+  let scale = getScale(startingColor.color, 10).reverse();
+  for (let i in scale) {
+    generatedColors.push({
+        name: `${startingColor.name} ${levels[i]}`,
+        id: startingColor.name.toLowerCase().replace(/ /g, "-"),
+        hex: scale[i],
+        rgb: chromaColor(scale[i]).css(),
+        rgba: chromaColor(scale[i]).css().replace("rgb", "rgba").replace(")", ",1.0)")
+      });
+    }
+  return generatedColors;
+}
+
 function getRange(hexColor: string) {
   const end = "#fff";
   return [chromaColor(hexColor).darker(1.4).hex(), hexColor, end];
@@ -41,4 +56,4 @@ function getScale(hexColor: string, numberOfColors: number) {
   return chromaScale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
 
-export { generatePalette, getScale };
+export { generatePalette, generateColorScale };
