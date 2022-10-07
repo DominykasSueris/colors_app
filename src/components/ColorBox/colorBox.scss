@@ -58,7 +58,6 @@
       font-weight: 100;
     }
   }
-
   .copy-message {
     position: fixed;
     display: flex;
@@ -123,4 +122,8 @@
 .ColorBox:hover .copy-button {
   opacity: 1;
   transition: 0.5s;
+}
+
+.Single-Color-Palette .ColorBox {
+  height: 50%;
 }

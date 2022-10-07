@@ -33,10 +33,13 @@ const SingleColorPalette = () => {
   };
 
   return (
-    <div className="Palette">
+    <div className="Single-Color-Palette Palette">
       <Navbar format={format} setFormat={setFormat} navbarDisplay={false} />
       <h1>Single Color Palette</h1>
-      <div className="Palette-colors">{smallColor()}</div>
+      <div className="Palette-colors">
+        {smallColor()}
+        <div className="go-back">Go back</div>
+      </div>
       <PaletteFooter generatedPalette={color} />
     </div>
   );
