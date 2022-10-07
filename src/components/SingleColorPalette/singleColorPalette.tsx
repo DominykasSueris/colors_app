@@ -5,6 +5,8 @@ import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import { ColorFormatType } from "../../models/SeedColor";
 import "../Palette/palette.scss";
+import Navbar from "../Navbar/navbar";
+import PaletteFooter from "../PaletteFooter/paletteFooter";
 
 const SingleColorPalette = () => {
   const [format, setFormat] = useState<ColorFormatType>("hex");
@@ -15,14 +17,14 @@ const SingleColorPalette = () => {
     if (!seedColor) {
       throw new Error("Seed Color not Found");
     }
-    const color = seedColor.colors.find((color) => colorName === color.name);
+    const color = seedColor.colors.find(color => colorName === color.name);
     if (!color) {
       throw new Error("Color not Found");
     }
 
     return (
       <>
-        {generateColorScale(color).map((color) => {
+        {generateColorScale(color).map(color => {
           console.log(color);
           return <ColorBox color={color} format={format} key={color.name} />;
         })}
@@ -32,8 +34,10 @@ const SingleColorPalette = () => {
 
   return (
     <div className="Palette">
+      <Navbar format={format} setFormat={setFormat} navbarDisplay={false} />
       <h1>Single Color Palette</h1>
       <div className="Palette-colors">{smallColor()}</div>
+      <PaletteFooter generatedPalette={color} />
     </div>
   );
 };

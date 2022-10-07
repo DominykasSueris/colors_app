@@ -17,6 +17,7 @@ interface SliderProps {
   setFormat: (format: ColorFormatType) => void;
   changeLevel: (sliderValue: number | number[]) => void;
   changeFormat: (event: SelectChangeEvent) => void;
+  navbarDisplay: boolean;
 }
 
 const Navbar = ({
@@ -25,7 +26,8 @@ const Navbar = ({
   changeLevel,
   format,
   changeFormat,
-  setFormat
+  setFormat,
+  navbarDisplay
 }: SliderProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -44,19 +46,21 @@ const Navbar = ({
       <div className="logo">
         <Link to="/">reactcolorpicker</Link>
       </div>
-      <div className="slider-container">
-        <span>Level:{colorLevel}</span>
-        <div className="slider">
-          <Slider
-            range
-            defaultValue={sliderValue}
-            min={0}
-            max={9}
-            step={1}
-            onChange={changeLevel}
-          />
+      {navbarDisplay && (
+        <div className="slider-container">
+          <span>Level:{colorLevel}</span>
+          <div className="slider">
+            <Slider
+              range
+              defaultValue={sliderValue}
+              min={0}
+              max={9}
+              step={1}
+              onChange={changeLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #ffffff</MenuItem>

@@ -7,15 +7,14 @@ import Navbar from "../Navbar/navbar";
 import "./palette.scss";
 import { generatePalette } from "../../assets/colorHelpersTs";
 import { ColorFormatType } from "../../models/SeedColor";
+import PaletteFooter from "../PaletteFooter/paletteFooter";
 
 const Palette = () => {
   const colorLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
   const [format, setFormat] = useState<ColorFormatType>("hex");
   const [sliderValue, setSliderValue] = useState<number>(4);
-  const [colorLevel, setColorLevel] = useState<number>(
-    colorLevels[sliderValue]
-  );
+  const [colorLevel, setColorLevel] = useState<number>(colorLevels[sliderValue]);
 
   const { id } = useParams();
 
@@ -41,7 +40,7 @@ const Palette = () => {
     return (
       <>
         <div className="Palette-colors">
-          {generatedPalette.colors.get(colorLevel)!.map((color) => (
+          {generatedPalette.colors.get(colorLevel)!.map(color => (
             <ColorBox
               color={color}
               format={format}
@@ -50,10 +49,7 @@ const Palette = () => {
             />
           ))}
         </div>
-        <footer className="Palette-footer">
-          {generatedPalette.paletteName}
-          <span className="emoji">{generatedPalette.emoji}</span>
-        </footer>
+        <PaletteFooter generatedPalette={generatedPalette} />
       </>
     );
   };
@@ -67,6 +63,7 @@ const Palette = () => {
         changeFormat={changeFormat}
         format={format}
         setFormat={setFormat}
+        navbarDisplay
       />
       {palette()}
     </div>
