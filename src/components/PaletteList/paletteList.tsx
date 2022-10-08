@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SeedColor } from "../../models/SeedColor";
 import { useNavigate } from "react-router-dom";
 import MiniPalette from "../MiniPalette/miniPalette";
@@ -19,6 +20,7 @@ const PaletteList = ({ palettes }: SeedColorProps) => {
       <div className="container">
         <nav className="nav">
           <h1>React Colors</h1>
+          <Link to="/palette/newPalette">Create Palette</Link>
         </nav>
         <div className="palettes">
           {palettes.map(palette => (
