@@ -11,12 +11,12 @@ import "./navbar.scss";
 import { ColorFormatType } from "../../models/SeedColor";
 
 interface SliderProps {
-  colorLevel: number;
-  sliderValue: number;
+  colorLevel?: number;
+  sliderValue?: number;
   format: ColorFormatType;
   setFormat: (format: ColorFormatType) => void;
-  changeLevel: (sliderValue: number | number[]) => void;
-  changeFormat: (event: SelectChangeEvent) => void;
+  changeLevel?: (sliderValue: number | number[]) => void;
+  changeFormat?: (event: SelectChangeEvent) => void;
   navbarDisplay: boolean;
 }
 
@@ -34,7 +34,7 @@ const Navbar = ({
   const handleChange = (event: SelectChangeEvent) => {
     setFormat(event.target.value as ColorFormatType);
     setOpen(true);
-    changeFormat(event);
+    if (changeFormat) changeFormat(event);
   };
 
   const handleSnackbar = () => {
@@ -54,7 +54,7 @@ const Navbar = ({
               range
               defaultValue={sliderValue}
               min={0}
-              max={9}
+              max={8}
               step={1}
               onChange={changeLevel}
             />
