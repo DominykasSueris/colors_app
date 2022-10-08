@@ -1,6 +1,6 @@
 import { color as chromaColor, scale as chromaScale } from "chroma.ts";
 import { Color, GeneratedColor, GeneratedPalette, SeedColor } from "../models/SeedColor";
-const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+const levels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 function generatePalette(starterPalette: SeedColor): GeneratedPalette {
   let newPalette: GeneratedPalette = {
@@ -15,7 +15,7 @@ function generatePalette(starterPalette: SeedColor): GeneratedPalette {
   }
 
   for (let color of starterPalette.colors) {
-    let scale = getScale(color.color, 10).reverse();
+    let scale = getScale(color.color, 9).reverse();
     for (let i in scale) {
       if (newPalette.colors.has(levels[i])) {
         newPalette.colors.get(levels[i])!.push({
@@ -34,16 +34,16 @@ function generatePalette(starterPalette: SeedColor): GeneratedPalette {
 
 function generateColorScale(startingColor: Color): GeneratedColor[] {
   let generatedColors: GeneratedColor[] = [];
-  let scale = getScale(startingColor.color, 10).reverse();
+  let scale = getScale(startingColor.color, 9).reverse();
   for (let i in scale) {
     generatedColors.push({
-        name: `${startingColor.name} ${levels[i]}`,
-        id: startingColor.name.toLowerCase().replace(/ /g, "-"),
-        hex: scale[i],
-        rgb: chromaColor(scale[i]).css(),
-        rgba: chromaColor(scale[i]).css().replace("rgb", "rgba").replace(")", ",1.0)")
-      });
-    }
+      name: `${startingColor.name} ${levels[i]}`,
+      id: startingColor.name.toLowerCase().replace(/ /g, "-"),
+      hex: scale[i],
+      rgb: chromaColor(scale[i]).css(),
+      rgba: chromaColor(scale[i]).css().replace("rgb", "rgba").replace(")", ",1.0)")
+    });
+  }
   return generatedColors;
 }
 

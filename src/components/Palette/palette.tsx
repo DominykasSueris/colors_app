@@ -10,7 +10,7 @@ import { ColorFormatType } from "../../models/SeedColor";
 import PaletteFooter from "../PaletteFooter/paletteFooter";
 
 const Palette = () => {
-  const colorLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+  const colorLevels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
   const [format, setFormat] = useState<ColorFormatType>("hex");
   const [sliderValue, setSliderValue] = useState<number>(4);
