@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import chroma from "chroma-js";
 import { ColorFormatType, GeneratedColor } from "../../models/SeedColor";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./colorBox.scss";
@@ -19,8 +20,6 @@ const ColorBox = ({ color, format, paletteId }: ColorProps) => {
       setCopied(false);
     }, 1500);
   };
-
-  console.log(color[format]);
 
   return (
     <div className="ColorBox" style={{ background: color[format] }}>
