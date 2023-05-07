@@ -8,7 +8,7 @@
 
 ## General info
 
-Color app created with React.js, TypeScript and CSS. Dynamic app with colours of some of the contries flags and custom colours palettes. Colours, brightness and color code are dynamic and could be changed and copied at any time.    
+Color app created with React.js, TypeScript and CSS. A clone of websites like Flat UI Colors and Material UI Colors. One of the projects from Colt Steele React Bootcamp course.
 
 ## Technologies
 Project is created with:
