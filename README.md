@@ -8,7 +8,7 @@
 
 ## General info
 
- Color app created with React.js and CSS. Dynamic app with colours of some of the contries flags and custom colours palettes. Colours, brightness and color code are dynamic and could be changed and copied at any time.    
+Color app created with React.js, TypeScript and CSS. Dynamic app with colours of some of the contries flags and custom colours palettes. Colours, brightness and color code are dynamic and could be changed and copied at any time.    
 
 ## Technologies
 Project is created with:
@@ -20,7 +20,7 @@ Project is created with:
 ## Setup
 To run this project, clone it locally from github:
 
-$ git clone "https://github.com/DominykasSueris/colors_app"
+`git clone "https://github.com/DominykasSueris/colors_app`
 
 ## Inspiration 
 This app is a task from "Udemy Colt Stelle react.js bootcamp course "
