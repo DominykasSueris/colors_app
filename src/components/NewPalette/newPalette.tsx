@@ -9,10 +9,13 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { ChromePicker } from "react-color";
+import "./newPalette.scss";
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
   open?: boolean;
@@ -113,6 +116,18 @@ const NewPalette = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
+        <Typography variant="h4">Design your pallete</Typography>
+        <Button variant="contained" color="secondary">
+          Clear Palette Button
+        </Button>
+        <Button variant="contained" color="primary">
+          Random color
+        </Button>
+        <ChromePicker color="green" onChangeComplete={newColor => console.log(newColor)} />
+        <Button variant="contained" color="primary">
+          Add color
+        </Button>
         <Divider />
       </Drawer>
       <Main open={open}>
