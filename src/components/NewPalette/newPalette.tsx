@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { ChromePicker } from "react-color";
+import { ChromePicker, ColorResult } from "react-color";
 import "./newPalette.scss";
 
 const drawerWidth = 400;
@@ -69,6 +69,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const NewPalette = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [currentColor, setCurrentColor] = React.useState<ColorResult>();
+  const [colors, setColors] = React.useState<ColorResult[]>([]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -76,6 +78,14 @@ const NewPalette = () => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const updateCurrentColor = (currentColor: ColorResult) => {
+    setCurrentColor(currentColor);
+  };
+
+  const addNewColor = () => {
+    if (currentColor) setColors([...colors, currentColor]);
   };
 
   return (
@@ -124,14 +134,26 @@ const NewPalette = () => {
         <Button variant="contained" color="primary">
           Random color
         </Button>
-        <ChromePicker color="green" onChangeComplete={newColor => console.log(newColor)} />
-        <Button variant="contained" color="primary">
+        <ChromePicker color={currentColor?.hex} onChangeComplete={updateCurrentColor} />
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: currentColor?.hex }}
+          onClick={addNewColor}
+        >
           Add color
         </Button>
         <Divider />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        <main>
+          <ul>
+            {colors.map(color => (
+              <li style={{ backgroundColor: color.hex }}>{color.hex}</li>
+            ))}
+          </ul>
+        </main>
       </Main>
     </Box>
   );
