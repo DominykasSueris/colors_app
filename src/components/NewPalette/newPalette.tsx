@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ChromePicker, ColorResult } from "react-color";
+import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 import "./newPalette.scss";
 
 const drawerWidth = 400;
@@ -147,12 +148,10 @@ const NewPalette = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <main>
-          <ul>
-            {colors.map(color => (
-              <li style={{ backgroundColor: color.hex }}>{color.hex}</li>
-            ))}
-          </ul>
+        <main className="new-palette-main">
+          {colors.map(color => (
+            <DraggableColorBox color={color} />
+          ))}
         </main>
       </Main>
     </Box>
