@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker, ColorResult } from "react-color";
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 import "./newPalette.scss";
@@ -39,6 +40,11 @@ const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
+}
+
+export interface Color {
+  color: ColorResult;
+  name?: string;
 }
 
 const AppBar = styled(MuiAppBar, {
@@ -70,8 +76,21 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const NewPalette = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [currentColor, setCurrentColor] = React.useState<ColorResult>();
-  const [colors, setColors] = React.useState<ColorResult[]>([]);
+  const [currentColor, setCurrentColor] = React.useState<ColorResult>({
+    hex: "#A02C2C",
+    hsl: { h: 0, s: 57, l: 40, a: 1 },
+    rgb: { r: 160, g: 44, b: 44, a: 1 }
+  });
+  const [colors, setColors] = React.useState<Color[]>([]);
+  const [newName, setNewName] = React.useState<string>();
+
+  ValidatorForm.addValidationRule("isColorNameUnique", value =>
+    colors.every(({ name }) => name?.toLowerCase() !== value.toLowerCase())
+  );
+
+  ValidatorForm.addValidationRule("isColorUnique", value =>
+    colors.every(({ color }) => color !== currentColor)
+  );
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,7 +105,15 @@ const NewPalette = () => {
   };
 
   const addNewColor = () => {
-    if (currentColor) setColors([...colors, currentColor]);
+    const newColor = {
+      color: currentColor,
+      name: newName
+    };
+    setColors([...colors, newColor]);
+  };
+
+  const handleNewNameChange = (e: any) => {
+    setNewName(e.target.value);
   };
 
   return (
@@ -135,15 +162,28 @@ const NewPalette = () => {
         <Button variant="contained" color="primary">
           Random color
         </Button>
-        <ChromePicker color={currentColor?.hex} onChangeComplete={updateCurrentColor} />
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ backgroundColor: currentColor?.hex }}
-          onClick={addNewColor}
-        >
-          Add color
-        </Button>
+        <ChromePicker color={currentColor.hex} onChangeComplete={updateCurrentColor} />
+        <ValidatorForm onSubmit={addNewColor}>
+          <TextValidator
+            name="test"
+            value={newName}
+            onChange={handleNewNameChange}
+            validators={["required", "isColorNameUnique", "isColorUnique"]}
+            errorMessages={[
+              "This field is required",
+              "Color name must be unique",
+              "Color already used"
+            ]}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            color="primary"
+            style={{ backgroundColor: currentColor?.hex }}
+          >
+            Add color
+          </Button>
+        </ValidatorForm>
         <Divider />
       </Drawer>
       <Main open={open}>

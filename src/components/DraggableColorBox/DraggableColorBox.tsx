@@ -1,15 +1,15 @@
 import React from "react";
-import { ColorResult } from "react-color";
+import { Color } from "../NewPalette/newPalette";
 import "./DraggableColorBox.scss";
 
 interface DraggableColorBox {
-  color: ColorResult;
+  color: Color;
 }
 
 const DraggableColorBox = ({ color }: DraggableColorBox) => {
   return (
-    <div className="draggable-palette" style={{ backgroundColor: color.hex }}>
-      {color.hex}
+    <div className="draggable-palette" style={{ backgroundColor: color.color.hex }}>
+      {color.name}
     </div>
   );
 };
