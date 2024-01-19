@@ -1,12 +1,5 @@
 import { SeedColor } from "../models/SeedColor";
 
-export const findPalleteById = (id: string | undefined) => {
-  if (!id) {
-    return undefined;
-  }
-  return seedColors.find(seedColor => seedColor.id === id);
-};
-
 export const seedColors: SeedColor[] = [
   {
     paletteName: "Material UI Colors",

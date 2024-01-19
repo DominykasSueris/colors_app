@@ -1,22 +1,27 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { SelectChangeEvent } from "@mui/material/Select";
-import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
 import Navbar from "../Navbar/navbar";
 import "./palette.scss";
 import { generatePalette } from "../../assets/colorHelpersTs";
-import { ColorFormatType } from "../../models/SeedColor";
+import { ColorFormatType, SeedColor } from "../../models/SeedColor";
 import PaletteFooter from "../PaletteFooter/paletteFooter";
 
-const Palette = () => {
+type Props = {
+  palettes: SeedColor[];
+};
+
+const Palette = ({ palettes }: Props) => {
+  const { id } = useParams();
+  const seedColor = palettes.find(p => p.id === id);
+  if (!seedColor) throw new Error("Palette not found");
+
   const colorLevels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
   const [format, setFormat] = useState<ColorFormatType>("hex");
   const [sliderValue, setSliderValue] = useState<number>(4);
   const [colorLevel, setColorLevel] = useState<number>(colorLevels[sliderValue]);
-
-  const { id } = useParams();
 
   const changeLevel = (sliderValue: number | number[]) => {
     if (Array.isArray(sliderValue)) {
@@ -31,10 +36,6 @@ const Palette = () => {
   };
 
   const palette = () => {
-    const seedColor = findPalleteById(id);
-    if (!seedColor) {
-      throw new Error("Error");
-    }
     const generatedPalette = generatePalette(seedColor);
 
     return (

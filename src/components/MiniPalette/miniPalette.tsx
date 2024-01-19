@@ -4,13 +4,12 @@ import "./miniPalette.scss";
 
 interface MiniPaletteProps {
   paletteName: string;
-  id: string;
   emoji: string;
   colors: Color[];
   handleClick: MouseEventHandler<HTMLDivElement>;
 }
 
-const MiniPalette = ({ paletteName, id, emoji, colors, handleClick }: MiniPaletteProps) => {
+const MiniPalette = ({ paletteName, emoji, colors, handleClick }: MiniPaletteProps) => {
   return (
     <div className="main" onClick={handleClick}>
       <div className="colors">

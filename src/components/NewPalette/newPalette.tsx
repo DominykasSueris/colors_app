@@ -16,6 +16,10 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker, ColorResult } from "react-color";
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 import "./newPalette.scss";
+import { useNavigate } from "react-router";
+import { SeedColor } from "../../models/SeedColor";
+import { Dispatch, SetStateAction } from "react";
+import { generatePalette } from "../../assets/colorHelpersTs";
 
 const drawerWidth = 400;
 
@@ -44,7 +48,16 @@ interface AppBarProps extends MuiAppBarProps {
 
 export interface Color {
   color: ColorResult;
-  name?: string;
+  name: string;
+}
+interface NewPalette {
+  paletteName?: string;
+  colors?: Color[];
+}
+
+interface NewPaletteProps extends NewPalette {
+  palettes: SeedColor[];
+  setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
 }
 
 const AppBar = styled(MuiAppBar, {
@@ -73,8 +86,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end"
 }));
 
-const NewPalette = () => {
+const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [currentColor, setCurrentColor] = React.useState<ColorResult>({
     hex: "#A02C2C",
@@ -82,7 +96,7 @@ const NewPalette = () => {
     rgb: { r: 160, g: 44, b: 44, a: 1 }
   });
   const [colors, setColors] = React.useState<Color[]>([]);
-  const [newName, setNewName] = React.useState<string>();
+  const [newName, setNewName] = React.useState<string>("");
 
   ValidatorForm.addValidationRule("isColorNameUnique", value =>
     colors.every(({ name }) => name?.toLowerCase() !== value.toLowerCase())
@@ -110,16 +124,32 @@ const NewPalette = () => {
       name: newName
     };
     setColors([...colors, newColor]);
+    setNewName("");
   };
 
-  const handleNewNameChange = (e: any) => {
-    setNewName(e.target.value);
+  const handleNewNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setNewName(e.currentTarget.value);
+  };
+
+  const saveNewPalette = () => {
+    let newName = "New test Palette";
+    const newPalette: SeedColor = {
+      paletteName: newName,
+      colors: colors.map(color => ({
+        name: color.name,
+        color: color.color.hex
+      })),
+      id: newName.toLocaleLowerCase().replace(/ /g, "-"),
+      emoji: "🎨"
+    };
+    setPalettes([...palettes, newPalette]);
+    navigate("/");
   };
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" color="default" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -133,6 +163,9 @@ const NewPalette = () => {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <Button variant="contained" color="primary" onClick={saveNewPalette}>
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

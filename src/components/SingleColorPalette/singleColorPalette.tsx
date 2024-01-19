@@ -2,22 +2,23 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { generateColorScale, generatePalette } from "../../assets/colorHelpersTs";
-import { findPalleteById } from "../../assets/seedColors";
 import ColorBox from "../ColorBox/colorBox";
-import { ColorFormatType } from "../../models/SeedColor";
+import { ColorFormatType, SeedColor } from "../../models/SeedColor";
 import "../Palette/palette.scss";
 import Navbar from "../Navbar/navbar";
 import PaletteFooter from "../PaletteFooter/paletteFooter";
 
-const SingleColorPalette = () => {
+type Props = {
+  palettes: SeedColor[];
+};
+
+const SingleColorPalette = ({ palettes }: Props) => {
   const [format, setFormat] = useState<ColorFormatType>("hex");
   const { paletteId, colorName } = useParams();
-  const seedColor = findPalleteById(paletteId);
+  const seedColor = palettes.find(p => p.id === paletteId);
+  if (!seedColor) throw new Error("Palette not Found");
 
   const smallColor = () => {
-    if (!seedColor) {
-      throw new Error("Seed Color not Found");
-    }
     const color = seedColor.colors.find(color => colorName === color.name);
     if (!color) {
       throw new Error("Color not Found");
@@ -33,9 +34,6 @@ const SingleColorPalette = () => {
   };
 
   const footer = () => {
-    if (!seedColor) {
-      throw new Error("Seed Color not Found");
-    }
     return <PaletteFooter generatedPalette={generatePalette(seedColor)} />;
   };
 

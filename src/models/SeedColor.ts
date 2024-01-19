@@ -14,7 +14,7 @@ export interface GeneratedColor {
 }
 
 const ColorFormats = ["hex", "rgb", "rgba"] as const;
-export type ColorFormatType = typeof ColorFormats[number];
+export type ColorFormatType = (typeof ColorFormats)[number];
 
 export interface SeedColor {
   paletteName: string;
