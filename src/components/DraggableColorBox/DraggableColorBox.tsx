@@ -1,4 +1,4 @@
-import React from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Color } from "../NewPalette/newPalette";
 import "./DraggableColorBox.scss";
 
@@ -9,7 +9,10 @@ interface DraggableColorBox {
 const DraggableColorBox = ({ color }: DraggableColorBox) => {
   return (
     <div className="draggable-palette" style={{ backgroundColor: color.color.hex }}>
-      {color.name}
+      <div className="box-content">
+        <span>{color.name}</span>
+        <DeleteIcon className="delete-icon" />
+      </div>
     </div>
   );
 };
