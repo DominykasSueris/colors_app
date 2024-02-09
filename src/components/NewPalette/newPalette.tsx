@@ -14,12 +14,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker, ColorResult } from "react-color";
-import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
+import DraggableColorList from "../DraggableColorList/DraggableColorList";
 import "./newPalette.scss";
 import { useNavigate } from "react-router";
 import { SeedColor } from "../../models/SeedColor";
 import { Dispatch, SetStateAction } from "react";
-import { generatePalette } from "../../assets/colorHelpersTs";
+import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
 
@@ -131,6 +131,10 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setColors(colors.filter(color => color.color !== currentColor));
   };
 
+  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+    setColors(colors => arrayMove(colors, oldIndex, newIndex));
+  };
+
   const handleNewNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setNewName(e.currentTarget.value);
   };
@@ -226,13 +230,12 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
       <Main open={open}>
         <DrawerHeader />
         <main className="new-palette-main">
-          {colors.map(color => (
-            <DraggableColorBox
-              key={color.name}
-              color={color}
-              removeCurrentColor={() => removeCurrentColor(color.color)}
-            />
-          ))}
+          <DraggableColorList
+            colors={colors}
+            removeCurrentColor={removeCurrentColor}
+            axis="xy"
+            onSortEnd={onSortEnd}
+          />
         </main>
       </Main>
     </Box>
