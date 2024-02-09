@@ -127,6 +127,10 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setNewName("");
   };
 
+  const removeCurrentColor = (currentColor: ColorResult) => {
+    setColors(colors.filter(color => color.color !== currentColor));
+  };
+
   const handleNewNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setNewName(e.currentTarget.value);
   };
@@ -223,7 +227,11 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
         <DrawerHeader />
         <main className="new-palette-main">
           {colors.map(color => (
-            <DraggableColorBox color={color} />
+            <DraggableColorBox
+              key={color.name}
+              color={color}
+              removeCurrentColor={() => removeCurrentColor(color.color)}
+            />
           ))}
         </main>
       </Main>

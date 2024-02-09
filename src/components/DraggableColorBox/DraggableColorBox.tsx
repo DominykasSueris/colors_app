@@ -4,14 +4,15 @@ import "./DraggableColorBox.scss";
 
 interface DraggableColorBox {
   color: Color;
+  removeCurrentColor: () => void;
 }
 
-const DraggableColorBox = ({ color }: DraggableColorBox) => {
+const DraggableColorBox = ({ color, removeCurrentColor }: DraggableColorBox) => {
   return (
     <div className="draggable-palette" style={{ backgroundColor: color.color.hex }}>
       <div className="box-content">
         <span>{color.name}</span>
-        <DeleteIcon className="delete-icon" />
+        <DeleteIcon className="delete-icon" onClick={removeCurrentColor} />
       </div>
     </div>
   );
