@@ -20,6 +20,7 @@ import { useNavigate } from "react-router";
 import { SeedColor } from "../../models/SeedColor";
 import { Dispatch, SetStateAction } from "react";
 import { arrayMove } from "react-sortable-hoc";
+import { colorToColorResult, hexToRgb, RGBToHSL } from "../../helpers/colortConverter";
 
 const drawerWidth = 400;
 
@@ -95,7 +96,9 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     hsl: { h: 0, s: 57, l: 40, a: 1 },
     rgb: { r: 160, g: 44, b: 44, a: 1 }
   });
-  const [colors, setColors] = React.useState<Color[]>([]);
+  const [colors, setColors] = React.useState<Color[]>(
+    palettes[0].colors.map(color => colorToColorResult(color))
+  );
   const [newName, setNewName] = React.useState<string>("");
 
   ValidatorForm.addValidationRule("isColorNameUnique", value =>
@@ -139,6 +142,27 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setNewName(e.currentTarget.value);
   };
 
+  const clearColors = () => {
+    setColors([]);
+  };
+
+  const addRandomColor = () => {
+    const allColors = palettes.map(p => p.colors).flat();
+    let color = Math.floor(Math.random() * allColors.length);
+    const randomColor = allColors[color];
+    console.log(randomColor);
+    const newColor: Color = {
+      color: {
+        hex: randomColor.color,
+        rgb: hexToRgb(randomColor.color),
+        hsl: RGBToHSL(hexToRgb(randomColor.color))
+      },
+      name: randomColor.name
+    };
+    console.log(allColors);
+    setColors([...colors, newColor]);
+  };
+
   const saveNewPalette = () => {
     let newName = "New test Palette";
     const newPalette: SeedColor = {
@@ -153,6 +177,10 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setPalettes([...palettes, newPalette]);
     navigate("/");
   };
+
+  const maxColors = 20;
+
+  const paletteIsFull = colors.length >= maxColors;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -197,10 +225,15 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
         <Divider />
 
         <Typography variant="h4">Design your pallete</Typography>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" onClick={clearColors}>
           Clear Palette Button
         </Button>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={addRandomColor}
+          disabled={paletteIsFull}
+        >
           Random color
         </Button>
         <ChromePicker color={currentColor.hex} onChangeComplete={updateCurrentColor} />
@@ -220,9 +253,10 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
             variant="contained"
             type="submit"
             color="primary"
-            style={{ backgroundColor: currentColor?.hex }}
+            disabled={paletteIsFull}
+            style={{ backgroundColor: paletteIsFull ? "grey" : currentColor?.hex }}
           >
-            Add color
+            {paletteIsFull ? "Palette Full" : "Add Color"}
           </Button>
         </ValidatorForm>
         <Divider />
