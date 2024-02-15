@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -8,9 +8,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ColorResult } from "react-color";
 import DraggableColorList from "../DraggableColorList/DraggableColorList";
-import { useNavigate } from "react-router";
 import { SeedColor } from "../../models/SeedColor";
-import { Dispatch, SetStateAction } from "react";
 import { arrayMove } from "react-sortable-hoc";
 import { colorToColorResult } from "../../helpers/colortConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
@@ -61,20 +59,17 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [currentColor, setCurrentColor] = React.useState<ColorResult>({
+  const [open, setOpen] = useState(false);
+  const [currentColor, setCurrentColor] = useState<ColorResult>({
     hex: "#A02C2C",
     hsl: { h: 0, s: 57, l: 40, a: 1 },
     rgb: { r: 160, g: 44, b: 44, a: 1 }
   });
-  const [colors, setColors] = React.useState<Color[]>(
+  const [colors, setColors] = useState<Color[]>(
     palettes[0].colors.map(color => colorToColorResult(color))
   );
-  const [paletteName, setPaletteName] = React.useState<string>("");
 
   const maxColors = 20;
-
   const paletteIsFull = colors.length >= maxColors;
 
   const handleDrawerOpen = () => {
@@ -93,28 +88,14 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setColors(colors => arrayMove(colors, oldIndex, newIndex));
   };
 
-  const saveNewPalette = (paletteName: string) => {
-    const newPalette: SeedColor = {
-      paletteName: paletteName,
-      colors: colors.map(color => ({
-        name: color.name,
-        color: color.color.hex
-      })),
-      id: paletteName.toLocaleLowerCase().replace(/ /g, "-"),
-      emoji: "🎨"
-    };
-    setPalettes([...palettes, newPalette]);
-    navigate("/");
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
       <PaletteNav
         open={open}
+        palettes={palettes}
+        colors={colors}
         handleDrawerOpen={handleDrawerOpen}
-        saveNewPalette={saveNewPalette}
-        setPaletteName={setPaletteName}
-        paletteName={paletteName}
+        setPalettes={setPalettes}
       />
       <Drawer
         sx={{
