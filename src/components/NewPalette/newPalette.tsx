@@ -2,23 +2,21 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { ChromePicker, ColorResult } from "react-color";
+import { ColorResult } from "react-color";
 import DraggableColorList from "../DraggableColorList/DraggableColorList";
-import "./newPalette.scss";
 import { useNavigate } from "react-router";
 import { SeedColor } from "../../models/SeedColor";
 import { Dispatch, SetStateAction } from "react";
 import { arrayMove } from "react-sortable-hoc";
-import { colorToColorResult, hexToRgb, RGBToHSL } from "../../helpers/colortConverter";
+import { colorToColorResult } from "../../helpers/colortConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
 import { drawerWidth } from "../AppBar/appBar";
+import ColorPickerForm from "../ColorPickerForm/colorPickerForm";
+import "./newPalette.scss";
 
 const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
   open?: boolean;
@@ -73,16 +71,11 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
   const [colors, setColors] = React.useState<Color[]>(
     palettes[0].colors.map(color => colorToColorResult(color))
   );
-  const [newName, setNewName] = React.useState<string>("");
   const [paletteName, setPaletteName] = React.useState<string>("");
 
-  ValidatorForm.addValidationRule("isColorNameUnique", value =>
-    colors.every(({ name }) => name?.toLowerCase() !== value.toLowerCase())
-  );
+  const maxColors = 20;
 
-  ValidatorForm.addValidationRule("isColorUnique", value =>
-    colors.every(({ color }) => color !== currentColor)
-  );
+  const paletteIsFull = colors.length >= maxColors;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -92,54 +85,12 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setOpen(false);
   };
 
-  const updateCurrentColor = (currentColor: ColorResult) => {
-    setCurrentColor(currentColor);
-  };
-
-  const addNewColor = () => {
-    const newColor = {
-      color: currentColor,
-      name: newName
-    };
-    setColors([...colors, newColor]);
-    setNewName("");
-  };
-
   const removeCurrentColor = (currentColor: ColorResult) => {
     setColors(colors.filter(color => color.color !== currentColor));
   };
 
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
     setColors(colors => arrayMove(colors, oldIndex, newIndex));
-  };
-
-  const handleNewNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setNewName(e.currentTarget.value);
-  };
-
-  const clearColors = () => {
-    setColors([]);
-  };
-
-  const handleChangePaletteName = (e: React.FormEvent<HTMLInputElement>) => {
-    setPaletteName(e.currentTarget.value);
-    console.log(paletteName);
-  };
-
-  const addRandomColor = () => {
-    const allColors = palettes.map(p => p.colors).flat();
-    let color = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[color];
-    const newColor: Color = {
-      color: {
-        hex: randomColor.color,
-        rgb: hexToRgb(randomColor.color),
-        hsl: RGBToHSL(hexToRgb(randomColor.color))
-      },
-      name: randomColor.name
-    };
-    console.log(allColors);
-    setColors([...colors, newColor]);
   };
 
   const saveNewPalette = (paletteName: string) => {
@@ -156,17 +107,13 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     navigate("/");
   };
 
-  const maxColors = 20;
-
-  const paletteIsFull = colors.length >= maxColors;
-
   return (
     <Box sx={{ display: "flex" }}>
       <PaletteNav
         open={open}
         handleDrawerOpen={handleDrawerOpen}
         saveNewPalette={saveNewPalette}
-        handleChangePaletteName={handleChangePaletteName}
+        setPaletteName={setPaletteName}
         paletteName={paletteName}
       />
       <Drawer
@@ -188,43 +135,14 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-
-        <Typography variant="h4">Design your pallete</Typography>
-        <Button variant="contained" color="secondary" onClick={clearColors}>
-          Clear Palette Button
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={addRandomColor}
-          disabled={paletteIsFull}
-        >
-          Random color
-        </Button>
-        <ChromePicker color={currentColor.hex} onChangeComplete={updateCurrentColor} />
-        <ValidatorForm onSubmit={addNewColor}>
-          <TextValidator
-            name="Color name"
-            value={newName}
-            onChange={handleNewNameChange}
-            validators={["required", "isColorNameUnique", "isColorUnique"]}
-            errorMessages={[
-              "This field is required",
-              "Color name must be unique",
-              "Color already used"
-            ]}
-          />
-          <Button
-            variant="contained"
-            type="submit"
-            color="primary"
-            disabled={paletteIsFull}
-            style={{ backgroundColor: paletteIsFull ? "grey" : currentColor?.hex }}
-          >
-            {paletteIsFull ? "Palette Full" : "Add Color"}
-          </Button>
-        </ValidatorForm>
-        <Divider />
+        <ColorPickerForm
+          paletteIsFull={paletteIsFull}
+          currentColor={currentColor}
+          palettes={palettes}
+          colors={colors}
+          setCurrentColor={setCurrentColor}
+          setColors={setColors}
+        />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

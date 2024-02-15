@@ -12,7 +12,7 @@ interface PaletteNavProps {
   open: boolean;
   handleDrawerOpen: () => void;
   saveNewPalette: (palleteName: string) => void;
-  handleChangePaletteName: (e: React.FormEvent<HTMLInputElement>) => void;
+  setPaletteName: (e: string) => void;
   paletteName: string;
 }
 
@@ -20,9 +20,13 @@ const PaletteNav = ({
   open,
   handleDrawerOpen,
   saveNewPalette,
-  handleChangePaletteName,
+  setPaletteName,
   paletteName
 }: PaletteNavProps) => {
+  const handleChangePaletteName = (e: React.FormEvent<HTMLInputElement>) => {
+    setPaletteName(e.currentTarget.value);
+  };
+
   return (
     <div>
       <CssBaseline />
@@ -46,6 +50,7 @@ const PaletteNav = ({
               value={paletteName}
               name="newPalleteName"
               onChange={handleChangePaletteName}
+              // fix validation
               errorMessages={["Enter Palette Name", "Name already used"]}
             />
             <Button variant="contained" color="primary" type="submit">
