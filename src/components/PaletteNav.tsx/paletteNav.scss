@@ -1,0 +1,22 @@
+.nav-buttons {
+  display: flex;
+}
+
+.appBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.icon {
+  display: flex;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.nav-tab {
+  display: flex;
+}

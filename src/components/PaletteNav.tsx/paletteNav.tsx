@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Button } from "@mui/material";
@@ -8,9 +9,8 @@ import Typography from "@mui/material/Typography";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "../AppBar/appBar";
 import { SeedColor } from "../../models/SeedColor";
-import { Dispatch, SetStateAction, useState } from "react";
 import { Color } from "../NewPalette/newPalette";
-
+import "./paletteNav.scss";
 interface PaletteNavProps {
   open: boolean;
   palettes: SeedColor[];
@@ -45,38 +45,51 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
     <div>
       <CssBaseline />
       <AppBar position="fixed" color="default" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-          <ValidatorForm onSubmit={() => saveNewPalette(paletteName)}>
-            <TextValidator
-              label="PalleteName"
-              value={paletteName}
-              name="newPalleteName"
-              onChange={handleChangePaletteName}
-              // fix validation
-              errorMessages={["Enter Palette Name", "Name already used"]}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-          <Link to="/">
-            <Button variant="contained" color="secondary">
-              Go Back
-            </Button>
-          </Link>
-        </Toolbar>
+        <div className="appBar">
+          <div className="icon">
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: "none" }) }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Toolbar>
+            <div className="title">
+              <Typography variant="h6" noWrap component="div">
+                Create a Palette
+              </Typography>
+            </div>
+          </div>
+          <div className="nav-tab">
+            <div className="validator-form">
+              <ValidatorForm
+                onSubmit={() => saveNewPalette(paletteName)}
+                style={{ display: "flex" }}
+              >
+                <TextValidator
+                  label="PalleteName"
+                  value={paletteName}
+                  name="newPalleteName"
+                  onChange={handleChangePaletteName}
+                  // fix validation
+                  errorMessages={["Enter Palette Name", "Name already used"]}
+                />
+                <Button variant="contained" color="primary" type="submit">
+                  Save Palette
+                </Button>
+              </ValidatorForm>
+            </div>
+            <Link to="/">
+              <Button variant="contained" color="secondary">
+                Go Back
+              </Button>
+            </Link>
+          </div>
+        </div>
       </AppBar>
     </div>
   );
