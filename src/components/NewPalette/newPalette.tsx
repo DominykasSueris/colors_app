@@ -50,6 +50,7 @@ interface NewPaletteProps extends NewPalette {
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
+  flexDirection: "row",
   alignItems: "center",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
@@ -116,14 +117,16 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <ColorPickerForm
-          paletteIsFull={paletteIsFull}
-          currentColor={currentColor}
-          palettes={palettes}
-          colors={colors}
-          setCurrentColor={setCurrentColor}
-          setColors={setColors}
-        />
+        <div className="drawer">
+          <ColorPickerForm
+            paletteIsFull={paletteIsFull}
+            currentColor={currentColor}
+            palettes={palettes}
+            colors={colors}
+            setCurrentColor={setCurrentColor}
+            setColors={setColors}
+          />
+        </div>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
