@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: 36px !important;
+  padding-bottom: 0 !important;
+}
+
+.chrome-picker {
+  width: 100% !important;
+  margin-bottom: 12px;
+}
+
+.form-validator {
+  width: 100%;
+}
+
+.text-validator {
+  width: 100%;
+}
+
+.title-button {
+  margin-bottom: 12px;
+}
+
+.title-button button {
+  margin-right: 3px;
+}
+
+.submit-button {
+  width: 100%;
+  height: 3.5rem;
+  font-size: large !important;
+  margin-top: 12px !important;
+}

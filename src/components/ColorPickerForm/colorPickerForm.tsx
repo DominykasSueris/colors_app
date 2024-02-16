@@ -2,11 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker, ColorResult } from "react-color";
-import { Button, Divider } from "@mui/material";
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Color } from "../NewPalette/newPalette";
 import { hexToRgb, RGBToHSL } from "../../helpers/colortConverter";
 import { SeedColor } from "../../models/SeedColor";
+import "./colorPicker.scss";
 
 interface ColorPickerForm {
   paletteIsFull: boolean;
@@ -26,6 +27,7 @@ const ColorPickerForm = ({
   setColors
 }: ColorPickerForm) => {
   const [newName, setNewName] = useState<string>("");
+
   ValidatorForm.addValidationRule("isColorNameUnique", value =>
     colors.every(({ name }) => name?.toLowerCase() !== value.toLowerCase())
   );
@@ -71,18 +73,31 @@ const ColorPickerForm = ({
   };
 
   return (
-    <div>
-      <Typography variant="h4">Design your pallete</Typography>
-      <Button variant="contained" color="secondary" onClick={clearColors}>
-        Clear Palette Button
-      </Button>
-      <Button variant="contained" color="primary" onClick={addRandomColor} disabled={paletteIsFull}>
-        Random color
-      </Button>
-      <Divider />
-      <ChromePicker color={currentColor.hex} onChangeComplete={updateCurrentColor} />
-      <ValidatorForm onSubmit={addNewColor}>
+    <div className="main">
+      <Typography variant="h4" className="title">
+        Design your pallete
+      </Typography>
+      <div className="title-button">
+        <Button variant="contained" color="secondary" onClick={clearColors}>
+          Clear Palette
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={addRandomColor}
+          disabled={paletteIsFull}
+        >
+          Random color
+        </Button>
+      </div>
+      <ChromePicker
+        className="chrome-picker"
+        color={currentColor.hex}
+        onChangeComplete={updateCurrentColor}
+      />
+      <ValidatorForm className="form-validator" onSubmit={addNewColor}>
         <TextValidator
+          className="text-validator"
           name="Color name"
           value={newName}
           onChange={addColorName}
@@ -94,6 +109,7 @@ const ColorPickerForm = ({
           ]}
         />
         <Button
+          className="submit-button"
           variant="contained"
           type="submit"
           color="primary"
