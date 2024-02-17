@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { Dispatch, SetStateAction } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -10,8 +9,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "../AppBar/appBar";
 import { SeedColor } from "../../models/SeedColor";
 import { Color } from "../NewPalette/newPalette";
+import PaletteMetaForm from "../PaletteMetaForm/paletteMetaForm";
 import "./paletteNav.scss";
-interface PaletteNavProps {
+interface PaletteNav {
   open: boolean;
   palettes: SeedColor[];
   colors: Color[];
@@ -19,28 +19,7 @@ interface PaletteNavProps {
   setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
 }
 
-const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: PaletteNavProps) => {
-  const navigate = useNavigate();
-  const [paletteName, setPaletteName] = useState<string>("");
-
-  const saveNewPalette = (paletteName: string) => {
-    const newPalette: SeedColor = {
-      paletteName: paletteName,
-      colors: colors.map(color => ({
-        name: color.name,
-        color: color.color.hex
-      })),
-      id: paletteName.toLocaleLowerCase().replace(/ /g, "-"),
-      emoji: "🎨"
-    };
-    setPalettes([...palettes, newPalette]);
-    navigate("/");
-  };
-
-  const handleChangePaletteName = (e: React.FormEvent<HTMLInputElement>) => {
-    setPaletteName(e.currentTarget.value);
-  };
-
+const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: PaletteNav) => {
   return (
     <div>
       <CssBaseline />
@@ -66,22 +45,7 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
           </div>
           <div className="nav-tab">
             <div className="validator-form">
-              <ValidatorForm
-                onSubmit={() => saveNewPalette(paletteName)}
-                style={{ display: "flex" }}
-              >
-                <TextValidator
-                  label="PalleteName"
-                  value={paletteName}
-                  name="newPalleteName"
-                  onChange={handleChangePaletteName}
-                  // fix validation
-                  errorMessages={["Enter Palette Name", "Name already used"]}
-                />
-                <Button variant="contained" color="primary" type="submit">
-                  Save Palette
-                </Button>
-              </ValidatorForm>
+              <PaletteMetaForm colors={colors} palettes={palettes} setPalettes={setPalettes} />
             </div>
             <Link to="/">
               <Button variant="contained" color="secondary">
