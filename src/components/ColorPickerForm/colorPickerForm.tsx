@@ -74,7 +74,7 @@ const ColorPickerForm = ({
 
   return (
     <div className="main">
-      <Typography variant="h4" className="title">
+      <Typography variant="h4" className="color-picker-title">
         Design your pallete
       </Typography>
       <div className="title-button">
@@ -99,6 +99,8 @@ const ColorPickerForm = ({
         <TextValidator
           className="text-validator"
           name="Color name"
+          variant="filled"
+          placeholder="Color name"
           value={newName}
           onChange={addColorName}
           validators={["required", "isColorNameUnique", "isColorUnique"]}
