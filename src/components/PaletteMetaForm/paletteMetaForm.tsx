@@ -11,22 +11,27 @@ import { SeedColor } from "../../models/SeedColor";
 import { Color } from "../NewPalette/newPalette";
 
 interface PaletteMetaForm {
+  openForm: boolean;
   palettes: SeedColor[];
   colors: Color[];
+  setOpenForm: Dispatch<SetStateAction<boolean>>;
   setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
+  openPaletteSaveForm: () => void;
 }
 
-const PaletteMetaForm = ({ colors, palettes, setPalettes }: PaletteMetaForm) => {
+const PaletteMetaForm = ({
+  openForm,
+  colors,
+  palettes,
+  setOpenForm,
+  setPalettes,
+  openPaletteSaveForm
+}: PaletteMetaForm) => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState<boolean>(false);
   const [paletteName, setPaletteName] = useState<string>("");
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    setOpenForm(false);
   };
 
   const saveNewPalette = (paletteName: string) => {
@@ -49,21 +54,23 @@ const PaletteMetaForm = ({ colors, palettes, setPalettes }: PaletteMetaForm) => 
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
+      <Button variant="contained" onClick={openPaletteSaveForm}>
+        Save
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText>
-          <ValidatorForm onSubmit={() => saveNewPalette(paletteName)}>
+      <Dialog open={openForm} onClose={handleClose}>
+        <DialogTitle fontWeight="bold">Choose a Palette Name</DialogTitle>
+        <ValidatorForm onSubmit={() => saveNewPalette(paletteName)}>
+          <DialogContent>
+            <DialogContentText>
+              Please enter the name for your new color palette. Make sure it's unique!
+            </DialogContentText>
             <TextValidator
               label="PalleteName"
               value={paletteName}
               name="newPalleteName"
+              fullWidth
+              variant="filled"
+              margin="normal"
               onChange={handleChangePaletteName}
               // fix validation
               errorMessages={["Enter Palette Name", "Name already used"]}
@@ -74,8 +81,8 @@ const PaletteMetaForm = ({ colors, palettes, setPalettes }: PaletteMetaForm) => 
                 Save Palette
               </Button>
             </DialogActions>
-          </ValidatorForm>
-        </DialogContent>
+          </DialogContent>
+        </ValidatorForm>
       </Dialog>
     </>
   );

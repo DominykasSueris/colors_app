@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,6 +20,12 @@ interface PaletteNav {
 }
 
 const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: PaletteNav) => {
+  const [openForm, setOpenForm] = useState<boolean>(false);
+
+  const openPaletteSaveForm = () => {
+    setOpenForm(true);
+  };
+
   return (
     <div>
       <CssBaseline />
@@ -44,9 +50,13 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
             </div>
           </div>
           <div className="nav-tab">
-            <div className="validator-form">
-              <PaletteMetaForm colors={colors} palettes={palettes} setPalettes={setPalettes} />
-            </div>
+            <Button
+              className="save-palette-button"
+              variant="contained"
+              onClick={openPaletteSaveForm}
+            >
+              Save Palette
+            </Button>
             <Link to="/">
               <Button variant="contained" color="secondary">
                 Go Back
@@ -54,6 +64,18 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
             </Link>
           </div>
         </div>
+        {openForm && (
+          <div className="validator-form">
+            <PaletteMetaForm
+              openForm={openForm}
+              colors={colors}
+              palettes={palettes}
+              setPalettes={setPalettes}
+              setOpenForm={setOpenForm}
+              openPaletteSaveForm={openPaletteSaveForm}
+            />
+          </div>
+        )}
       </AppBar>
     </div>
   );
