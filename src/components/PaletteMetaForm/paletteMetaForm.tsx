@@ -59,7 +59,7 @@ const PaletteMetaForm = ({ colors, palettes, setPalettes }: PaletteMetaForm) => 
             To subscribe to this website, please enter your email address here. We will send updates
             occasionally.
           </DialogContentText>
-          <ValidatorForm onSubmit={() => saveNewPalette(paletteName)} style={{ display: "flex" }}>
+          <ValidatorForm onSubmit={() => saveNewPalette(paletteName)}>
             <TextValidator
               label="PalleteName"
               value={paletteName}
@@ -68,15 +68,14 @@ const PaletteMetaForm = ({ colors, palettes, setPalettes }: PaletteMetaForm) => 
               // fix validation
               errorMessages={["Enter Palette Name", "Name already used"]}
             />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button variant="contained" color="primary" type="submit">
+                Save Palette
+              </Button>
+            </DialogActions>
           </ValidatorForm>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
-        </DialogActions>
       </Dialog>
     </>
   );
