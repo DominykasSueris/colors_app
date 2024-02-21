@@ -30,6 +30,10 @@ const PaletteMetaForm = ({
   const navigate = useNavigate();
   const [paletteName, setPaletteName] = useState<string>("");
 
+  ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
+    palettes.every(palette => palette.paletteName !== paletteName)
+  );
+
   const handleClose = () => {
     setOpenForm("");
   };
@@ -80,6 +84,7 @@ const PaletteMetaForm = ({
               variant="filled"
               margin="normal"
               onChange={handleChangePaletteName}
+              validators={["required", "isPaletteNameUnique"]}
               errorMessages={["Enter Palette Name", "Name already used"]}
             />
             <DialogActions>
