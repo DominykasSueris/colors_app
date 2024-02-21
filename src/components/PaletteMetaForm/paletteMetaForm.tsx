@@ -7,16 +7,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import { SeedColor } from "../../models/SeedColor";
 import { Color } from "../NewPalette/newPalette";
 
 interface PaletteMetaForm {
-  openForm: boolean;
+  openForm: string;
   palettes: SeedColor[];
   colors: Color[];
-  setOpenForm: Dispatch<SetStateAction<boolean>>;
+  setOpenForm: Dispatch<SetStateAction<string>>;
   setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
-  openPaletteSaveForm: () => void;
 }
 
 const PaletteMetaForm = ({
@@ -24,17 +25,16 @@ const PaletteMetaForm = ({
   colors,
   palettes,
   setOpenForm,
-  setPalettes,
-  openPaletteSaveForm
+  setPalettes
 }: PaletteMetaForm) => {
   const navigate = useNavigate();
   const [paletteName, setPaletteName] = useState<string>("");
 
   const handleClose = () => {
-    setOpenForm(false);
+    setOpenForm("");
   };
 
-  const saveNewPalette = (paletteName: string) => {
+  const saveNewPalette = (paletteName: string, emoji: string) => {
     const newPalette: SeedColor = {
       paletteName: paletteName,
       colors: colors.map(color => ({
@@ -42,7 +42,7 @@ const PaletteMetaForm = ({
         color: color.color.hex
       })),
       id: paletteName.toLocaleLowerCase().replace(/ /g, "-"),
-      emoji: "🎨"
+      emoji: emoji
     };
     setPalettes([...palettes, newPalette]);
     navigate("/");
@@ -52,18 +52,26 @@ const PaletteMetaForm = ({
     setPaletteName(e.currentTarget.value);
   };
 
+  const showEmojiPicker = () => {
+    setOpenForm("emoji");
+  };
+
   return (
     <>
-      <Button variant="contained" onClick={openPaletteSaveForm}>
-        Save
-      </Button>
-      <Dialog open={openForm} onClose={handleClose}>
+      <Dialog open={openForm === "emoji"}>
+        <Picker
+          data={data}
+          onEmojiSelect={({ native }: { native: string }) => saveNewPalette(paletteName, native)}
+        />
+      </Dialog>
+      <Dialog open={openForm === "form"} onClose={handleClose}>
         <DialogTitle fontWeight="bold">Choose a Palette Name</DialogTitle>
-        <ValidatorForm onSubmit={() => saveNewPalette(paletteName)}>
+        <ValidatorForm onSubmit={showEmojiPicker}>
           <DialogContent>
             <DialogContentText>
               Please enter the name for your new color palette. Make sure it's unique!
             </DialogContentText>
+
             <TextValidator
               label="PalleteName"
               value={paletteName}
@@ -72,7 +80,6 @@ const PaletteMetaForm = ({
               variant="filled"
               margin="normal"
               onChange={handleChangePaletteName}
-              // fix validation
               errorMessages={["Enter Palette Name", "Name already used"]}
             />
             <DialogActions>

@@ -20,10 +20,10 @@ interface PaletteNav {
 }
 
 const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: PaletteNav) => {
-  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [openForm, setOpenForm] = useState<string>("");
 
   const openPaletteSaveForm = () => {
-    setOpenForm(true);
+    setOpenForm("form");
   };
 
   return (
@@ -72,7 +72,6 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
               palettes={palettes}
               setPalettes={setPalettes}
               setOpenForm={setOpenForm}
-              openPaletteSaveForm={openPaletteSaveForm}
             />
           </div>
         )}
