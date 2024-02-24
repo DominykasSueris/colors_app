@@ -62,7 +62,8 @@ const PaletteMetaForm = ({
 
   return (
     <>
-      <Dialog open={openForm === "emoji"}>
+      <Dialog open={openForm === "emoji"} onClose={handleClose}>
+        <DialogTitle>Choose a Palette Emoji</DialogTitle>
         <Picker
           data={data}
           onEmojiSelect={({ native }: { native: string }) => saveNewPalette(paletteName, native)}
