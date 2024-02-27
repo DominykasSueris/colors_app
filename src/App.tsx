@@ -9,7 +9,10 @@ import { SeedColor } from "./models/SeedColor";
 import "./App.css";
 
 function App() {
-  const [palettes, setPalettes] = React.useState<SeedColor[]>(seedColors);
+  let savedPalettes = window.localStorage.getItem("palettes");
+  const [palettes, setPalettes] = React.useState<SeedColor[]>(
+    savedPalettes ? JSON.parse(savedPalettes) : seedColors
+  );
 
   return (
     <div className="App">

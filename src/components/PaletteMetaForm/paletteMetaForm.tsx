@@ -48,8 +48,14 @@ const PaletteMetaForm = ({
       id: paletteName.toLocaleLowerCase().replace(/ /g, "-"),
       emoji: emoji
     };
-    setPalettes([...palettes, newPalette]);
+    const newPalettes = [...palettes, newPalette];
+    setPalettes(newPalettes);
+    saveToLocalStorage(newPalettes);
     navigate("/");
+  };
+
+  const saveToLocalStorage = (palettes: SeedColor[]) => {
+    window.localStorage.setItem("palettes", JSON.stringify(palettes));
   };
 
   const handleChangePaletteName = (e: React.FormEvent<HTMLInputElement>) => {
