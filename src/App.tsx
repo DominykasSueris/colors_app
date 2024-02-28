@@ -17,7 +17,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<PaletteList palettes={palettes} />}></Route>
+        <Route
+          path="/"
+          element={<PaletteList palettes={palettes} setPalettes={setPalettes} />}
+        ></Route>
         <Route
           path="/palette/newPalette"
           element={<NewPalette palettes={palettes} setPalettes={setPalettes} />}

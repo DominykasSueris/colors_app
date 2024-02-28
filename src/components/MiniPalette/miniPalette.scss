@@ -5,10 +5,7 @@
   padding: 0.5rem;
   position: relative;
   overflow: hidden;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   .colors {
     background-color: #dae1e4;
@@ -44,4 +41,21 @@
       margin-bottom: -3.5px;
     }
   }
+}
+
+.main:hover svg {
+  opacity: 1;
+}
+
+.main-delete-icon {
+  color: white;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  z-index: 10;
+  opacity: 0;
+  transition: "all 3s ease-in-out";
 }

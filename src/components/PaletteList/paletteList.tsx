@@ -3,12 +3,13 @@ import { SeedColor } from "../../models/SeedColor";
 import { useNavigate } from "react-router-dom";
 import MiniPalette from "../MiniPalette/miniPalette";
 import "./paletteList.scss";
-
+import { Dispatch, SetStateAction } from "react";
 export interface SeedColorProps {
   palettes: SeedColor[];
+  setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
 }
 
-const PaletteList = ({ palettes }: SeedColorProps) => {
+const PaletteList = ({ palettes, setPalettes }: SeedColorProps) => {
   const navigate = useNavigate();
 
   const goToPalette = (id: string) => {
@@ -28,6 +29,8 @@ const PaletteList = ({ palettes }: SeedColorProps) => {
               key={palette.id}
               {...palette}
               handleClick={() => goToPalette(palette.id)}
+              palettes={palettes}
+              setPalettes={setPalettes}
             />
           ))}
         </div>
