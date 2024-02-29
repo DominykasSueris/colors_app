@@ -1,0 +1,26 @@
+.Single-Color-Palette .ColorBox {
+  height: 50%;
+
+  @media (max-width: 992px) {
+    width: 100%;
+    height: 10%;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+    height: 10%;
+  }
+}
+
+.ColorBox.go-back {
+  background-color: black;
+}
+
+.Single-Color-Palette h1 {
+  @media (max-width: 500px) {
+    margin: 16px 0 16px 0;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+  }
+}

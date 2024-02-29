@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { generateColorScale, generatePalette } from "../../assets/colorHelpersTs";
 import ColorBox from "../ColorBox/colorBox";
 import { ColorFormatType, SeedColor } from "../../models/SeedColor";
-import "../Palette/palette.scss";
 import Navbar from "../Navbar/navbar";
 import PaletteFooter from "../PaletteFooter/paletteFooter";
+import "../SingleColorPalette/singleColorPalette.scss";
 
 type Props = {
   palettes: SeedColor[];
