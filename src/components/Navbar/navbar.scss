@@ -18,12 +18,20 @@
     text-decoration: none;
     color: black;
   }
+
+  @media (max-width: 576px) {
+    display: none;
+  }
 }
 
 .slider {
   width: 340px;
   margin: 0 10px;
   display: inline-block;
+
+  @media (max-width: 576px) {
+    width: 150px;
+  }
 }
 
 .rc-slider-track {
