@@ -26,4 +26,34 @@
 .save-palette-button {
   height: 36px;
   margin-right: 1rem !important;
+
+  @media (max-width: 375px) {
+    height: 32px !important;
+    font-size: 8px !important;
+    margin: 0 4px !important;
+  }
+}
+
+.go-back-button {
+  @media (max-width: 375px) {
+    height: 32px !important;
+    font-size: 8px !important;
+    margin: 0 4px !important;
+  }
+}
+
+.typography-title {
+  @media (max-width: 375px) {
+    font-size: 16px !important;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 16px !important;
+  }
+}
+
+.icon button {
+  @media (max-width: 375px) {
+    margin: 0 !important;
+  }
 }

@@ -44,7 +44,7 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
               </IconButton>
             </Toolbar>
             <div className="title">
-              <Typography variant="h6" noWrap component="div">
+              <Typography className="typography-title" variant="h6" noWrap component="div">
                 Create a Palette
               </Typography>
             </div>
@@ -58,7 +58,7 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
               Save Palette
             </Button>
             <Link to="/">
-              <Button variant="contained" color="secondary">
+              <Button className="go-back-button" variant="contained" color="secondary">
                 Go Back
               </Button>
             </Link>
