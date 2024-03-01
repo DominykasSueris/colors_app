@@ -11,6 +11,10 @@
     align-items: flex-start;
     flex-direction: column;
     flex-wrap: wrap;
+
+    @media (max-width: 1400px) {
+      width: 80%;
+    }
   }
 
   .nav {
@@ -31,5 +35,15 @@
     display: grid;
     grid-template-columns: repeat(3, 30%);
     grid-gap: 5%;
+
+    @media (max-width: 576px) {
+      grid-template-columns: repeat(2, 50%);
+      grid-gap: 1rem;
+    }
+
+    @media (max-width: 375px) {
+      grid-template-columns: repeat(1, 100%);
+      grid-gap: 1.5rem;
+    }
   }
 }
