@@ -20,8 +20,10 @@ const PaletteList = ({ palettes, setPalettes }: SeedColorProps) => {
     <div className="palettelist">
       <div className="container">
         <nav className="nav">
-          <h1>React Colors</h1>
-          <Link to="/palette/newPalette">Create Palette</Link>
+          <h1 className="heading">React Colors</h1>
+          <Link className="heading-create" to="/palette/newPalette">
+            Create Palette
+          </Link>
         </nav>
         <div className="palettes">
           {palettes.map(palette => (

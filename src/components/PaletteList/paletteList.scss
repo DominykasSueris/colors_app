@@ -1,5 +1,6 @@
 .palettelist {
-  background-color: blue;
+  // background-color: blue;
+  background-image: url("../../assets/background/confetti-doodles.svg"); // background by SVGbackgrounds.com
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
@@ -45,5 +46,39 @@
       grid-template-columns: repeat(1, 100%);
       grid-gap: 1.5rem;
     }
+  }
+}
+
+.heading {
+  font-size: 2.5rem;
+
+  @media (max-width: 992px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 1.25rem;
+  }
+}
+
+.heading-create {
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: 400;
+
+  @media (max-width: 992px) {
+    font-size: 1.35rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 1rem;
   }
 }
