@@ -19,6 +19,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-transition-group": "^4.4.10",
     "chroma.ts": "^1.0.10",
     "emoji-mart": "^5.5.2",
     "rc-slider": "^10.0.1",
@@ -30,6 +31,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-sortable-hoc": "^2.0.0",
+    "react-transition-group": "^4.4.5",
     "sass": "^1.69.7",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
