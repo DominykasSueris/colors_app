@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
-import { SeedColor } from "../../models/SeedColor";
-import { useNavigate } from "react-router-dom";
-import MiniPalette from "../MiniPalette/miniPalette";
-import "./paletteList.scss";
 import { Dispatch, SetStateAction } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import MiniPalette from "../MiniPalette/miniPalette";
+import { SeedColor } from "../../models/SeedColor";
+import "./paletteList.scss";
+
 export interface SeedColorProps {
   palettes: SeedColor[];
   setPalettes: Dispatch<SetStateAction<SeedColor[]>>;
@@ -25,17 +27,19 @@ const PaletteList = ({ palettes, setPalettes }: SeedColorProps) => {
             Create Palette
           </Link>
         </nav>
-        <div className="palettes">
+        <TransitionGroup className="palettes">
           {palettes.map(palette => (
-            <MiniPalette
-              key={palette.id}
-              {...palette}
-              handleClick={() => goToPalette(palette.id)}
-              palettes={palettes}
-              setPalettes={setPalettes}
-            />
+            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
+              <MiniPalette
+                key={palette.id}
+                {...palette}
+                handleClick={() => goToPalette(palette.id)}
+                palettes={palettes}
+                setPalettes={setPalettes}
+              />
+            </CSSTransition>
           ))}
-        </div>
+        </TransitionGroup>
       </div>
     </div>
   );

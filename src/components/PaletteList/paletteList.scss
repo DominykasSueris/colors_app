@@ -1,5 +1,4 @@
 .palettelist {
-  // background-color: blue;
   background-image: url("../../assets/background/confetti-doodles.svg"); // background by SVGbackgrounds.com
   min-height: 100vh;
   display: flex;
@@ -28,6 +27,15 @@
     a {
       color: white;
     }
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-out;
   }
 
   .palettes {
