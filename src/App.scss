@@ -1,0 +1,27 @@
+.App {
+  overflow: hidden;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 750ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 0;
+}
+
+.fade-exit-active {
+  opacity: 1;
+  transition: opacity 750ms ease-in-out;
+}
+
+.fade {
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
