@@ -14,6 +14,7 @@ import { colorToColorResult } from "../../helpers/colortConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
 import { drawerWidth } from "../AppBar/appBar";
 import ColorPickerForm from "../ColorPickerForm/colorPickerForm";
+import { seedColors } from "../../assets/seedColors";
 import "./newPalette.scss";
 
 const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
@@ -67,7 +68,7 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     rgb: { r: 160, g: 44, b: 44, a: 1 }
   });
   const [colors, setColors] = useState<Color[]>(
-    palettes[0].colors.map(color => colorToColorResult(color))
+    seedColors[0].colors.map(color => colorToColorResult(color))
   );
 
   const maxColors = 20;
