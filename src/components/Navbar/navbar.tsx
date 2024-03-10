@@ -62,7 +62,7 @@ const Navbar = ({
         </div>
       )}
       <div className="select-container">
-        <Select value={format} onChange={handleChange}>
+        <Select className="select-color" value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
           <MenuItem value="rgb">RGB - rgb 255, 255, 255</MenuItem>
           <MenuItem value="rgba">RGBA- rgb 255, 255, 255, 1.0</MenuItem>
