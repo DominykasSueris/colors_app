@@ -95,7 +95,7 @@ const ColorPickerForm = ({
         color={currentColor.hex}
         onChangeComplete={updateCurrentColor}
       />
-      <ValidatorForm className="form-validator" onSubmit={addNewColor}>
+      <ValidatorForm className="form-validator" onSubmit={addNewColor} instantValidate={false}>
         <TextValidator
           className="text-validator"
           name="Color name"
