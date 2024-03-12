@@ -7,6 +7,7 @@ import { seedColors } from "./assets/seedColors";
 import SingleColorPalette from "./components/SingleColorPalette/singleColorPalette";
 import NewPalette from "./components/NewPalette/newPalette";
 import { SeedColor } from "./models/SeedColor";
+import NotFound from "./components/NotFound/notFound";
 import "./App.scss";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               path="/palette/:paletteId/color/:colorName"
               element={<SingleColorPalette palettes={palettes} />}
             ></Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
