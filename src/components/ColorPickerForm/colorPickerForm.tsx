@@ -44,7 +44,7 @@ const ColorPickerForm = ({
     setNewName(e.currentTarget.value);
   };
 
-  const addRandomColor = () => {
+  const generateRandomColort = (): Color => {
     const allColors = palettes.map(p => p.colors).flat();
     let color = Math.floor(Math.random() * allColors.length);
     const randomColor = allColors[color];
@@ -56,7 +56,15 @@ const ColorPickerForm = ({
       },
       name: randomColor.name
     };
-    setColors([...colors, newColor]);
+    return newColor;
+  };
+
+  const addRandomColor = () => {
+    let randomColor: Color;
+    do {
+      randomColor = generateRandomColort();
+    } while (colors.find(col => col.color.hex === randomColor.color.hex));
+    setColors([...colors, randomColor]);
   };
 
   const addNewColor = () => {
