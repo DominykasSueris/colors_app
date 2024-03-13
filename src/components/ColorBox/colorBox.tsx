@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import chroma from "chroma-js";
 import { ColorFormatType, GeneratedColor } from "../../models/SeedColor";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "./colorBox.scss";
+import { color as chromaColor } from "chroma.ts";
 
 interface ColorProps {
   color: GeneratedColor;
@@ -33,7 +33,17 @@ const ColorBox = ({ color, format, paletteId }: ColorProps) => {
       </div>
       <div className="copy-container">
         <div className="box-content">
-          <span className="color-name">{color.name}</span>
+          <span
+            className="color-name"
+            style={{
+              color:
+                chromaColor(color.hex).luminance() <= 0.08
+                  ? "rgba(255,255,255,0.8)"
+                  : "rgba(0,0,0,0.6)"
+            }}
+          >
+            {color.name}
+          </span>
         </div>
         <CopyToClipboard text={color[format]} onCopy={handleCopyState}>
           <button className="copy-button">Copy</button>
