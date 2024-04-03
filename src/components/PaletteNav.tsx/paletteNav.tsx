@@ -11,6 +11,7 @@ import { SeedColor } from "../../models/SeedColor";
 import { Color } from "../NewPalette/newPalette";
 import PaletteMetaForm from "../PaletteMetaForm/paletteMetaForm";
 import "./paletteNav.scss";
+import useIsMobile from "../../hooks/isMobile";
 interface PaletteNav {
   open: boolean;
   palettes: SeedColor[];
@@ -25,6 +26,14 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
   const openPaletteSaveForm = () => {
     setOpenForm("form");
   };
+
+  const title = () => (
+    <div className="title">
+      <Typography className="typography-title" variant="h6" noWrap component="div">
+        Create a Palette
+      </Typography>
+    </div>
+  );
 
   return (
     <div>
@@ -43,11 +52,7 @@ const PaletteNav = ({ open, palettes, colors, handleDrawerOpen, setPalettes }: P
                 <MenuIcon />
               </IconButton>
             </Toolbar>
-            <div className="title">
-              <Typography className="typography-title" variant="h6" noWrap component="div">
-                Create a Palette
-              </Typography>
-            </div>
+            {useIsMobile() ? (open ? null : title()) : title()}
           </div>
           <div className="nav-tab">
             <Button
