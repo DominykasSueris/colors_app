@@ -12,9 +12,9 @@ import { SeedColor } from "../../models/SeedColor";
 import { arrayMove } from "react-sortable-hoc";
 import { colorToColorResult } from "../../helpers/colortConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
-import { drawerWidth } from "../AppBar/appBar";
 import ColorPickerForm from "../ColorPickerForm/colorPickerForm";
 import { seedColors } from "../../assets/seedColors";
+import useDrawerWidth from "../../hooks/drawerWidth";
 import "./newPalette.scss";
 
 const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
@@ -26,7 +26,7 @@ const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
   }),
-  marginLeft: `-${drawerWidth}px`,
+  marginLeft: `-${useDrawerWidth()}px`,
   ...(open && {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
@@ -101,10 +101,10 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
       />
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: useDrawerWidth(),
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: useDrawerWidth(),
             boxSizing: "border-box"
           }
         }}
