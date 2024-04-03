@@ -11,6 +11,10 @@
   justify-content: center;
   font-size: 36px !important;
   padding-bottom: 0 !important;
+
+  @media (max-width: 375px) {
+    font-size: 20px !important;
+  }
 }
 
 .chrome-picker {
@@ -28,14 +32,28 @@
 
 .text-validator input {
   padding-top: 12px;
+
+  @media (max-width: 375px) {
+    font-size: 12px;
+    padding: 4px;
+  }
 }
 
 .title-button {
   margin-bottom: 12px;
+
+  @media (max-width: 375px) {
+    display: flex;
+  }
 }
 
 .title-button button {
   margin-right: 3px;
+
+  @media (max-width: 375px) {
+    font-size: 8px;
+    padding: 4px;
+  }
 }
 
 .submit-button {
@@ -43,4 +61,9 @@
   height: 3.5rem;
   font-size: large !important;
   margin-top: 12px !important;
+
+  @media (max-width: 375px) {
+    font-size: 12px !important;
+    height: 2rem !important;
+  }
 }
