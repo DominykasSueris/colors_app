@@ -1,5 +1,5 @@
 const useIsMobile = () => {
-  return window.innerWidth < 576;
+  return window.innerWidth < 821;
 };
 
 export default useIsMobile;
