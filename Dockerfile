@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --force
 
 FROM base AS builder
 WORKDIR /app
@@ -24,9 +24,9 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder --chown=nextjs:nodejs /app/package.json package.json
-COPY --from=builder --chown=nextjs:nodejs /app/.next .next
 COPY --from=builder --chown=nextjs:nodejs /app/public public
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/src src
 
 USER nextjs
 
