@@ -9,7 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ColorResult } from "react-color";
 import DraggableColorList from "../DraggableColorList/DraggableColorList";
 import { SeedColor } from "../../models/SeedColor";
-import { colorToColorResult } from "../../helpers/colortConverter";
+import { colorToColorResult } from "../../helpers/colorConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
 import ColorPickerForm from "../ColorPickerForm/colorPickerForm";
 import { seedColors } from "../../assets/seedColors";

@@ -5,7 +5,7 @@ import { ChromePicker, ColorResult } from "react-color";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Color } from "../NewPalette/newPalette";
-import { hexToRgb, RGBToHSL } from "../../helpers/colortConverter";
+import { hexToRgb, RGBToHSL } from "../../helpers/colorConverter";
 import { SeedColor } from "../../models/SeedColor";
 import "./colorPicker.scss";
 
