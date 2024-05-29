@@ -1,5 +1,4 @@
 import { ColorResult } from "react-color";
-// import { SortableContainer } from "react-sortable-hoc";
 import {
   DndContext,
   DragEndEvent,
@@ -8,7 +7,7 @@ import {
   useSensor,
   useSensors
 } from "@dnd-kit/core";
-import { arrayMove, horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import DraggableColorBox from "../DraggableColorBox/DraggableColorBox";
 import { Color } from "../NewPalette/newPalette";
 import { Dispatch, SetStateAction } from "react";
