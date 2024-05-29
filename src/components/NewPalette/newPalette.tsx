@@ -9,13 +9,13 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ColorResult } from "react-color";
 import DraggableColorList from "../DraggableColorList/DraggableColorList";
 import { SeedColor } from "../../models/SeedColor";
-import { arrayMove } from "react-sortable-hoc";
 import { colorToColorResult } from "../../helpers/colortConverter";
 import PaletteNav from "../PaletteNav.tsx/paletteNav";
 import ColorPickerForm from "../ColorPickerForm/colorPickerForm";
 import { seedColors } from "../../assets/seedColors";
 import useDrawerWidth from "../../hooks/drawerWidth";
 import "./newPalette.scss";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
 const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
   open?: boolean;
@@ -36,6 +36,7 @@ const Main = styled("main", { shouldForwardProp: prop => prop !== "open" })<{
   })
 }));
 export interface Color {
+  id: UniqueIdentifier;
   color: ColorResult;
   name: string;
 }
@@ -86,10 +87,6 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
     setColors(colors.filter(color => color.color !== currentColor));
   };
 
-  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
-    setColors(colors => arrayMove(colors, oldIndex, newIndex));
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
       <PaletteNav
@@ -134,9 +131,8 @@ const NewPalette = ({ palettes, setPalettes }: NewPaletteProps) => {
         <main className="new-palette-main">
           <DraggableColorList
             colors={colors}
+            setColors={setColors}
             removeCurrentColor={removeCurrentColor}
-            axis="xy"
-            onSortEnd={onSortEnd}
           />
         </main>
       </Main>

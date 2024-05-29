@@ -54,7 +54,8 @@ const ColorPickerForm = ({
         rgb: hexToRgb(randomColor.color),
         hsl: RGBToHSL(hexToRgb(randomColor.color))
       },
-      name: randomColor.name
+      name: randomColor.name,
+      id: randomColor.name
     };
     return newColor;
   };
@@ -70,7 +71,8 @@ const ColorPickerForm = ({
   const addNewColor = () => {
     const newColor = {
       color: currentColor,
-      name: newName
+      name: newName,
+      id: newName
     };
     setColors([...colors, newColor]);
     setNewName("");

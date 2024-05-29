@@ -26,5 +26,9 @@ export const RGBToHSL = ({ r, g, b }: RGBColor): HSLColor => {
 
 export const colorToColorResult = (color: OldColor): Color => {
   const rgb = hexToRgb(color.color);
-  return { name: color.name, color: { hex: color.color, rgb: rgb, hsl: RGBToHSL(rgb) } };
+  return {
+    id: color.name,
+    name: color.name,
+    color: { hex: color.color, rgb: rgb, hsl: RGBToHSL(rgb) }
+  };
 };
